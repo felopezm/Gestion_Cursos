@@ -1,0 +1,38 @@
+{{>header}}
+<div class="container">
+    <h3>Inscripción a Cursos</h3><br>
+    <p style="color:red">{{error_inscripcion}}</p><br>
+    <form id="formInscripcion" action="inscriptCourse" method="post">
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="">Cursos</label>
+                <select name="id_curso" id="id_curso" class="form-control">
+                      <option value=""></option>
+                    {{{cursos_inscripcion}}}
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="">Identificación</label>
+                <input type="number" name="cedula" id="cedula" class="form-control" required>
+            </div>
+            <div class="col-sm-3">
+                <label for="">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" required>
+            </div>
+            <div class="col-sm-3">
+                <label for="">Correo</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="">Teléfono</label>
+                <input type="tel" name="telefono" id="telefono" class="form-control" required>
+            </div>
+        </div><br>
+        <button class="btn btn-primary">Guardar</button>
+    </form><br>
+</div>
+{{>footer}}

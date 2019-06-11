@@ -1,0 +1,19 @@
+{
+  "name": "gestion_cursos",
+  "version": "1.0.0",
+  "description": "Proyecto de gestion de cursos para la Universidad",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felopezm/Gestion_Cursos.git"
+  },
+  "author": "felopezm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felopezm/Gestion_Cursos/issues"
+  },
+  "homepage": "https://github.com/felopezm/Gestion_Cursos#readme"
+}

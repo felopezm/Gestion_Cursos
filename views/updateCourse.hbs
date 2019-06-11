@@ -1,0 +1,51 @@
+{{>header}}
+<div class="container">
+    <h3>Actualizar estado a los Curso</h3><br>
+    <p style="color:red">{{error_actualizar}}</p><br>
+    <div class="row">
+        <div class="column col-sm-4">
+            <form id="formInscripcion" action="updateCourse" method="post">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label for="">Cursos</label>
+                        <select name="id" id="id" class="form-control">
+                            <option value=""></option>
+                            {{{cursos_actualizar}}}
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="">Estados</label>
+                        <select name="estado" id="estado" class="form-control">
+                            <option value="DISPONIBLE">DISPONIBLE</option>
+                            <option value="CERRADO">CERRADO</option>
+                        </select>
+                    </div>
+                </div><br>
+                <button class="btn btn-primary">Guardar</button>
+            </form><br>
+        </div>
+        <div class="column col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Cursos</h3>
+                </div>
+                <table class="table table-hover" id="dev-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Valor</th>
+                            <th>Modalidad</th>
+                            <th>Intensidad H.</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    {{{cursos}}}
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{{>footer}}
