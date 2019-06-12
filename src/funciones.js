@@ -1,6 +1,7 @@
 const fs = require('fs');
 let cursos = [];
 let inscripciones = [];
+let usuarios=[];
 
 const listar_cursos = () => {
     try {
@@ -17,7 +18,13 @@ const listar_inscripciones = () => {
         inscripciones = [];
     }
 } 
-
+const listar_usuarios = () => {
+    try {
+        cursos = require('./usuarios.json')
+    } catch (error) {
+        cursos = [];
+    }
+} 
 
 const ver_cursos = () => {
     listar_cursos();
@@ -88,6 +95,37 @@ const crear_inscripcion = inscripcion => {
     }
 }
 
+//1 aspirante, 2 profesor, 3 admin
+const crear_usuario = usuario => {
+    listar_usuarios();
+    datosUsuraio={
+        cedula:usuario.cedula,
+        nombre:usuario.nombre,
+        email:usuario.email,
+        telefono:usuario.telefono,
+        tipo:1
+
+    }
+    let duplicado = usuarios.find(data =>  data.cedula == datosUsuraio.cedula)
+    if (!duplicado) {
+        usuarios.push(datosUsuraio);
+        guardar_usuario();
+        return true;
+    } else {
+        console.log(`El estudiante ya existe`);
+        return false;
+    }
+}
+
+const guardar_usuario = () => {
+    let new_inscripciones = JSON.stringify(usuarios);
+    fs.writeFile('src/usuarios.json', new_inscripciones, (err) => {
+        if (err) throw (err);     
+        console.log(`usuario guardado con exito`);
+    })
+}
+
+
 const guardar_inscripcion = () => {
     let new_inscripciones = JSON.stringify(inscripciones);
     fs.writeFile('src/inscripciones.json', new_inscripciones, (err) => {
@@ -115,5 +153,6 @@ module.exports = {
     ver_cursos,
     crear_inscripcion,
     actualizar_curso,
-    eliminar_estudiante
+    eliminar_estudiante,
+    crear_usuario
 }

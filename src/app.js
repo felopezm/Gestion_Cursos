@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('view engine', 'hbs');
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
   res.render('index', {
     mensaje: ''
   });
@@ -118,10 +118,49 @@ app.post('/viewEstudenByCourse', (req, res) => {
     });
   }
 });
+/*
+* ---login
+*/
+app.get('/', (req, res) => {
+  res.render('login',{
+    mensaje:''
+  });
+});
+app.post('/login', (req, res) => {
+  //codigo login
+});
+
+
+
+
+/*
+* --- realizar inscripcion usuario
+*/
+app.get('/register', (req, res) => {
+  res.render('register', {
+    error_inscripcion: ''
+  });
+});
+app.post('/register', (req, res) => {
+  
+
+  let save = funciones.crear_usuario(req.body);
+  if (save) {
+    res.render('login', {
+      mensaje: 'Inscripción creada correctamente'
+    });
+  } else {
+    res.render('register', {
+      error_inscripcion: 'El usuario ya esta registrado'
+    });
+
+  }
+});
 
 /*
 * ---Si ahi algun error en la url
 */
+
 app.get('*', (req, res) => {
   res.render('error', {
     estudiante: 'error'
