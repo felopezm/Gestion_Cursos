@@ -126,8 +126,35 @@ app.get('/', (req, res) => {
     mensaje:''
   });
 });
+
 app.post('/login', (req, res) => {
-  //codigo login
+  
+  let tipo = funciones.get_usuarioLogin(req.body.usuario,req.body.password);
+
+  switch (tipo) {
+    case 0:
+    res.render('login',{
+      mensaje:'Usuario no existe'
+    });
+      break;
+      case 1:
+      res.render('index', {
+        mensaje: ''
+      });
+      break;
+      case 2:
+      res.render('index', {
+        mensaje: ''
+      });
+      break;
+      case 3:
+      res.render('index', {
+        mensaje: ''
+      });
+      break;
+    default:
+      break;
+  }
 });
 
 

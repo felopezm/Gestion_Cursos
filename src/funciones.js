@@ -2,9 +2,11 @@ const fs = require('fs');
 let cursos = [];
 let inscripciones = [];
 let usuarios=[];
+let session =[];
 
 const listar_cursos = () => {
     try {
+        
         cursos = require('./cursos.json')
     } catch (error) {
         cursos = [];
@@ -18,11 +20,23 @@ const listar_inscripciones = () => {
         inscripciones = [];
     }
 } 
+
+const listar_session = () => {
+    try {
+        session = require('./session.json')
+    } catch (error) {
+        session = [];
+    }
+} 
+
 const listar_usuarios = () => {
     try {
-        cursos = require('./usuarios.json')
+        console.log(__dirname);
+        usuraios = require('./usuarios.json')
+        console.log(usuarios)
     } catch (error) {
-        cursos = [];
+       
+        usuraios = [];
     }
 } 
 
@@ -97,6 +111,7 @@ const crear_inscripcion = inscripcion => {
 
 //1 aspirante, 2 profesor, 3 admin
 const crear_usuario = usuario => {
+   
     listar_usuarios();
     datosUsuraio={
         cedula:usuario.cedula,
@@ -126,6 +141,15 @@ const guardar_usuario = () => {
 }
 
 
+
+const guardar_session = () => {
+    let new_inscripciones = JSON.stringify(inscripciones);
+    fs.writeFile('src/inscripciones.json', new_inscripciones, (err) => {
+        if (err) throw (err);     
+        console.log(`Inscripcion guardada con exito`);
+    })
+}
+
 const guardar_inscripcion = () => {
     let new_inscripciones = JSON.stringify(inscripciones);
     fs.writeFile('src/inscripciones.json', new_inscripciones, (err) => {
@@ -148,11 +172,50 @@ const eliminar_estudiante = (estudiante) => {
     }
 }
 
+const get_usuarioLogin = (UserName,password) =>{
+  
+    listar_usuarios();
+    console.log(usuarios);
+    let usuario=usuarios.find(data => data.cedula == password && data.email==UserName);
+    console.log(usuario);
+    if (!usuario) {
+        
+        console.log(`El usuario no existe`);
+        return 0;
+    } else {
+        
+        let tipo;
+        switch (usuario.tipo) {
+            case 1:
+                tipo="ASPIRANTE"
+                break;
+            case 2:
+                tipo="DOCENTE"
+                break;
+            case 3:
+                tipo="ADMIN"
+                break;
+        
+            default:
+               tipo="ERROR"
+                break;
+        };
+        session={usuario: usuario.email,
+        tipo: tipo};
+        guardar_session();
+        return usuario.tipo;
+    }
+
+}
+
+
 module.exports = {
     crear_curso,
     ver_cursos,
+    get_usuarioLogin,
     crear_inscripcion,
     actualizar_curso,
     eliminar_estudiante,
     crear_usuario
+    
 }
