@@ -1,47 +1,24 @@
 {{>header}}
 <div class="container">
-    <h3>Agregar un nuevo curso</h3><br>
+    <h3>gestion de usuarios/h3><br>
     <p style="color:red">{{duplicado}}</p>
     <br>
-    <form id="loginformA" action="addCourse" method="post">
+    <form id="loginformA" action="gestionUsuarios" method="post">
         <div>
             <div class="row">
-                <div class="col-md-3">
-                    <label for="id">Id Curso: </label>
-                    <input type="number" class="form-control" id="id" name="id" required>
+                <div class="col-md-6">
+                    <label for="cedula">cedual </label>
+                    <input type="number" class="form-control" id="cedula" name="cedula" required>
                 </div>
-                <div class="col-md-3">
-                    <label for="nombre">Nombre Completo: </label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="descripcion">Descripción: </label>
-                    <textarea placeholder="Agregar una descripción" required class="form-control" id="descripcion"
-                        name="descripcion"></textarea>
-                </div>
-            </div><br>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label for="valor">Valor: </label>
-                    <input type="number" class="form-control" id="valor" name="valor" required>
-                </div>
-                <div class="col-sm-3">
-                    <label for="modalidad">Modalidad:</label>
-                    <select class="form-control" name="modalidad" id="modalidad">
-                        <option value="-">-</option>
-                        <option value="VIRTUAL">Virtual</option>
-                        <option value="PRESENCIAL">Presencial</option>
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <label for="intensidad">Intensidad Horaria: </label>
-                    <input type="number" class="form-control" id="intensidad" name="intensidad">
+                <div class="col-md-6">
+                    <label for="tipo">Tipo usuario (1 aspirante, 2 docente, 3 coordinador) </label>
+                    <input type="text" class="form-control" id="tipo" name="tipo" required>
                 </div>
             </div><br>
             <button class="btn btn-primary">Guardar</button>
         </div><br>
     </form>
-    <h3>Cursos agregados</h3><br>
+    <h3>Usuarios:</h3><br>
     <br>
     <div class="col-md-8">
         <div class="panel panel-primary">

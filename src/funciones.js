@@ -253,6 +253,23 @@ const tablar_usuarios = () => {
     return inscrip;
 }
 
+const actualizar_TipoUsuario = (cedula,tipo) => {
+    listar_usuarios();
+     
+    let usuario = usuarios.find(data => data.cedula == cedula)
+    if (usuario) {
+        usuario["tipo"] = tipo;
+        guardar_usuario();
+        return true;
+    } else {
+        console.log(`Error, ususario no existe`);
+        return false;
+    }
+   
+ }
+
+
+
 
 module.exports = {
     crear_curso,
@@ -262,6 +279,7 @@ module.exports = {
     actualizar_curso,
     eliminar_estudiante,
     crear_usuario,
-    tablar_usuarios
+    tablar_usuarios,
+    actualizar_TipoUsuario
     
 }

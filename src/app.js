@@ -228,6 +228,27 @@ app.get('/gestionUsuarios', (req, res) => {
     tabla_usuarios:tabla
   }); 
 });
+app.post('/gestionUsuarios', (req, res) => {
+
+  let result= funciones.actualizar_TipoUsuario(req.body.cedula,req.body.tipo);
+  if(result){
+    let tabla= funciones.tablar_usuarios();
+    console.log(tabla);
+    res.render('gestionUsuarios', {
+      mensaje: 'cambio exitoso',
+      tabla_usuarios:tabla
+    }); 
+  }
+  else{
+    let tabla= funciones.tablar_usuarios();
+    console.log(tabla);
+    res.render('gestionUsuarios', {
+      error_inscripcion: 'usuario no existe',
+      tabla_usuarios:tabla
+    }); 
+  }
+
+});
 
 /*
 * ---Si ahi algun error en la url
