@@ -51,6 +51,7 @@ const listar_usuarios = () => {
     
     try {   
         usuarios = require('./usuarios.json');
+        console.log(usuarios)
         // fs.readFile('src/usuarios.json', (err, data) => {  
         //     if (err) throw err;
         //     console.log(data);
@@ -235,6 +236,40 @@ const get_usuarioLogin = (UserName,password) =>{
 
 }
 
+const tablar_usuarios = () => {
+   listar_usuarios();
+    let inscrip = `<tbody>`;
+    usuarios.forEach(datos => {
+        inscrip += `<tr>
+                        <td>${datos.cedula}</td>
+                        <td>${datos.nombre}</td>
+                        <td>${datos.email}</td>
+                        <td>${datos.telefono}</td>
+                        <td>${datos.tipo}</td>
+                      
+                    </tr>`;
+    });
+    inscrip += `</tbody>`;
+    return inscrip;
+}
+
+const actualizar_TipoUsuario = (cedula,tipo) => {
+    listar_usuarios();
+     
+    let usuario = usuarios.find(data => data.cedula == cedula)
+    if (usuario) {
+        usuario["tipo"] = tipo;
+        guardar_usuario();
+        return true;
+    } else {
+        console.log(`Error, ususario no existe`);
+        return false;
+    }
+   
+ }
+
+
+
 
 module.exports = {
     crear_curso,
@@ -243,6 +278,8 @@ module.exports = {
     crear_inscripcion,
     actualizar_curso,
     eliminar_estudiante,
-    crear_usuario
+    crear_usuario,
+    tablar_usuarios,
+    actualizar_TipoUsuario
     
 }

@@ -1,0 +1,44 @@
+{{>header}}
+<div class="container">
+    <h3>gestion de usuarios/h3><br>
+    <p style="color:red">{{duplicado}}</p>
+    <br>
+    <form id="loginformA" action="gestionUsuarios" method="post">
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="cedula">cedual </label>
+                    <input type="number" class="form-control" id="cedula" name="cedula" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="tipo">Tipo usuario (1 aspirante, 2 docente, 3 coordinador) </label>
+                    <input type="text" class="form-control" id="tipo" name="tipo" required>
+                </div>
+            </div><br>
+            <button class="btn btn-primary">Guardar</button>
+        </div><br>
+    </form>
+    <h3>Usuarios:</h3><br>
+    <br>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Cursos</h3>
+            </div>
+            <table class="table table-hover" id="dev-table">
+                <thead>
+                    <tr>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>email</th>
+                        <th>Telefono</th>
+                        <th>Tipo</th>
+                       
+                    </tr>
+                </thead>
+                {{{tabla_usuarios}}}
+            </table>
+        </div>
+    </div>
+</div>
+{{>footer}}
