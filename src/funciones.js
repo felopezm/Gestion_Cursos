@@ -169,7 +169,7 @@ const guardar_usuario = () => {
 
 
 const guardar_session = () => {
-    let new_inscripciones = JSON.stringify(inscripciones);
+    let new_inscripciones = JSON.stringify(session);
     fs.writeFile('src/session.json', new_inscripciones, (err) => {
         if (err) throw (err);     
         console.log(`Inscripcion guardada con exito`);

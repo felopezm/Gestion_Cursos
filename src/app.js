@@ -20,6 +20,16 @@ app.get('/index', (req, res) => {
     mensaje: ''
   });
 });
+app.get('/indexaspirante', (req, res) => {
+  res.render('index', {
+    mensaje: ''
+  });
+});
+app.get('/indexcoordinador', (req, res) => {
+  res.render('index', {
+    mensaje: ''
+  });
+});
 
 /*
 * ---Agregar un nuevo curso
@@ -159,7 +169,7 @@ app.post('/login', (req, res) => {
     });
       break;
       case 1:
-      res.render('index', {
+      res.render('indexaspirante', {
         mensaje: ''
       });
       break;
@@ -169,7 +179,7 @@ app.post('/login', (req, res) => {
       });
       break;
       case 3:
-      res.render('index', {
+      res.render('indexcoordinador', {
         mensaje: ''
       });
       break;
@@ -204,6 +214,7 @@ app.post('/register', (req, res) => {
 
   }
 });
+
 
 /*
 * ---Si ahi algun error en la url
