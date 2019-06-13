@@ -143,7 +143,7 @@ app.post('/viewCoursesOffEstuden', (req, res) => {
       mensaje: 'Estudiante Eliminado Correctamente'
     });
   } else {
-    res.render('viewEstudenByCourse',{
+    res.render('viewCoursesOffEstuden',{
       mensaje:'Error al eliminar el estudiante'
     });
   }

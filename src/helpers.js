@@ -126,7 +126,7 @@ hbs.registerHelper('cursos_del_estudiante', () => {
                         <h3 class="panel-title">${curso.nombre} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
                     </div>
                     <div class="panel-body" style="display: none;">  
-                        <form id="formEstudenBycourse" action="viewEstudenByCourse" method="post">
+                        <form id="formCourseEstuden" action="viewCoursesOffEstuden" method="post">
                         => ESTUDIANTE: ${inscripcion.nombre} 
                             <div class="row">
                             <div class="col-sm-6">
