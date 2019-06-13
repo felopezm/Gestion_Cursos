@@ -28,7 +28,7 @@ const listar_inscripciones = () => {
             inscripciones  = JSON.parse(data);
            
         });
-       
+    
     } catch (error) {
         inscripciones = [];
     }
@@ -52,8 +52,9 @@ const listar_usuarios = () => {
     try {   
         fs.readFile('src/usuarios.json', (err, data) => {  
             if (err) throw err;
+            console.log(data);
             usuarios  = JSON.parse(data);
-           
+           console.log(usuarios);
         });
     }catch(error){
         console.log(error);
@@ -146,7 +147,9 @@ const crear_usuario = usuario => {
     }
     let duplicado = usuarios.find(data =>  data.cedula == datosUsuraio.cedula)
     if (!duplicado) {
+        console.log(typeof(usuarios));
         usuarios.push(datosUsuraio);
+        console.log(usuarios);
         guardar_usuario();
         return true;
     } else {
@@ -167,7 +170,7 @@ const guardar_usuario = () => {
 
 const guardar_session = () => {
     let new_inscripciones = JSON.stringify(inscripciones);
-    fs.writeFile('src/inscripciones.json', new_inscripciones, (err) => {
+    fs.writeFile('src/session.json', new_inscripciones, (err) => {
         if (err) throw (err);     
         console.log(`Inscripcion guardada con exito`);
     })
