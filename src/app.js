@@ -21,12 +21,12 @@ app.get('/index', (req, res) => {
   });
 });
 app.get('/indexaspirante', (req, res) => {
-  res.render('index', {
+  res.render('indexaspirante', {
     mensaje: ''
   });
 });
 app.get('/indexcoordinador', (req, res) => {
-  res.render('index', {
+  res.render('indexcoordinador', {
     mensaje: ''
   });
 });
@@ -42,7 +42,7 @@ app.get('/addCourse', (req, res) => {
 app.post('/addCourse', (req, res) => {
   let save = funciones.crear_curso(req.body);
   if (save) {
-    res.render('index', {
+    res.render('indexcoordinador', {
       mensaje: 'Curso creado correctamente'
     });
   } else {
@@ -76,7 +76,7 @@ app.post('/inscriptCourse', (req, res) => {
   } else {
     let save = funciones.crear_inscripcion(req.body);
     if (save) {
-      res.render('index', {
+      res.render('indexaspirante', {
         mensaje: 'Inscripción creada correctamente'
       });
     } else {
@@ -98,7 +98,7 @@ app.get('/updateCourse', (req, res) => {
 app.post('/updateCourse', (req, res) => {
   let save = funciones.actualizar_curso(req.body);
   if (save) {
-    res.render('index', {
+    res.render('indexcoordinador', {
       mensaje: 'Curso Actualizado Correctamente'
     });
   } else {
@@ -119,7 +119,7 @@ app.get('/viewEstudenByCourse', (req, res) => {
 app.post('/viewEstudenByCourse', (req, res) => {
   let delete_ = funciones.eliminar_estudiante(req.body);
   if (delete_) {
-    res.render('index', {
+    res.render('indexcoordinador', {
       mensaje: 'Estudiante Eliminado Correctamente'
     });
   } else {
@@ -139,7 +139,7 @@ app.get('/viewCoursesOffEstuden', (req, res) => {
 app.post('/viewCoursesOffEstuden', (req, res) => {
   let delete_ = funciones.eliminar_estudiante(req.body);
   if (delete_) {
-    res.render('index', {
+    res.render('indexaspirante', {
       mensaje: 'Estudiante Eliminado Correctamente'
     });
   } else {
