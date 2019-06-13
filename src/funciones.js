@@ -7,13 +7,13 @@ let session =[];
 const listar_cursos = () => {
     try {
         
-        //cursos = require('./cursos.json')
+        cursos = require('./cursos.json')
         
-        fs.readFile('src/cursos.json', (err, data) => {  
-            if (err) throw err;
-            cursos  = JSON.parse(data);
-           
-        });
+        // fs.readFile('src/cursos.json', (err, data) => {
+        //     if (err) throw err;
+        //     cursos = JSON.parse(data);
+
+        // });
 
     } catch (error) {
         cursos = [];
@@ -22,12 +22,12 @@ const listar_cursos = () => {
 
 const listar_inscripciones = () => {
     try {
-        //inscripciones = require('./inscripciones.json')
-        fs.readFile('src/inscripciones.json', (err, data) => {  
-            if (err) throw err;
-            inscripciones  = JSON.parse(data);
-           
-        });
+        inscripciones = require('./inscripciones.json')
+        // fs.readFile('src/inscripciones.json', (err, data) => {
+        //     if (err) throw err;
+        //     inscripciones = JSON.parse(data);
+
+        // });
     
     } catch (error) {
         inscripciones = [];
@@ -36,12 +36,12 @@ const listar_inscripciones = () => {
 
 const listar_session = () => {
     try {
-        //session = require('./session.json');
-        fs.readFile('src/session.json', (err, data) => {  
-            if (err) throw err;
-            session  = JSON.parse(data);
-           
-        });
+        session = require('./session.json');
+        // fs.readFile('src/session.json', (err, data) => {
+        //     if (err) throw err;
+        //     session = JSON.parse(data);
+
+        // });
     } catch (error) {
         session = [];
     }
@@ -50,12 +50,13 @@ const listar_session = () => {
 const listar_usuarios = () => {
     
     try {   
-        fs.readFile('src/usuarios.json', (err, data) => {  
-            if (err) throw err;
-            console.log(data);
-            usuarios  = JSON.parse(data);
-           console.log(usuarios);
-        });
+        usuarios = require('./usuarios.json');
+        // fs.readFile('src/usuarios.json', (err, data) => {  
+        //     if (err) throw err;
+        //     console.log(data);
+        //     usuarios  = JSON.parse(data);
+        //    console.log(usuarios);
+        // });
     }catch(error){
         console.log(error);
         usuarios=[];
