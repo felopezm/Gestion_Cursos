@@ -215,6 +215,19 @@ app.post('/register', (req, res) => {
   }
 });
 
+/*
+* ---gestio usuario
+*/
+
+app.get('/gestionUsuarios', (req, res) => {
+
+  let tabla= funciones.tablar_usuarios();
+  console.log(tabla);
+  res.render('gestionUsuarios', {
+    error_inscripcion: '',
+    tabla_usuarios:tabla
+  }); 
+});
 
 /*
 * ---Si ahi algun error en la url

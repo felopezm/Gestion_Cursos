@@ -1,0 +1,67 @@
+{{>header}}
+<div class="container">
+    <h3>Agregar un nuevo curso</h3><br>
+    <p style="color:red">{{duplicado}}</p>
+    <br>
+    <form id="loginformA" action="addCourse" method="post">
+        <div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="id">Id Curso: </label>
+                    <input type="number" class="form-control" id="id" name="id" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="nombre">Nombre Completo: </label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="descripcion">Descripción: </label>
+                    <textarea placeholder="Agregar una descripción" required class="form-control" id="descripcion"
+                        name="descripcion"></textarea>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="valor">Valor: </label>
+                    <input type="number" class="form-control" id="valor" name="valor" required>
+                </div>
+                <div class="col-sm-3">
+                    <label for="modalidad">Modalidad:</label>
+                    <select class="form-control" name="modalidad" id="modalidad">
+                        <option value="-">-</option>
+                        <option value="VIRTUAL">Virtual</option>
+                        <option value="PRESENCIAL">Presencial</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <label for="intensidad">Intensidad Horaria: </label>
+                    <input type="number" class="form-control" id="intensidad" name="intensidad">
+                </div>
+            </div><br>
+            <button class="btn btn-primary">Guardar</button>
+        </div><br>
+    </form>
+    <h3>Cursos agregados</h3><br>
+    <br>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Cursos</h3>
+            </div>
+            <table class="table table-hover" id="dev-table">
+                <thead>
+                    <tr>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>email</th>
+                        <th>Telefono</th>
+                        <th>Tipo</th>
+                       
+                    </tr>
+                </thead>
+                {{{tabla_usuarios}}}
+            </table>
+        </div>
+    </div>
+</div>
+{{>footer}}
