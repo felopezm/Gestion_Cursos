@@ -119,6 +119,26 @@ app.post('/viewEstudenByCourse', (req, res) => {
   }
 });
 /*
+* ---Cursos del estudiante
+*/
+app.get('/viewCoursesOffEstuden', (req, res) => {
+  res.render('viewCoursesOffEstuden',{
+    mensaje:''
+  });
+});
+app.post('/viewCoursesOffEstuden', (req, res) => {
+  let delete_ = funciones.eliminar_estudiante(req.body);
+  if (delete_) {
+    res.render('index', {
+      mensaje: 'Estudiante Eliminado Correctamente'
+    });
+  } else {
+    res.render('viewEstudenByCourse',{
+      mensaje:'Error al eliminar el estudiante'
+    });
+  }
+});
+/*
 * ---login
 */
 app.get('/', (req, res) => {

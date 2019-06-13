@@ -112,6 +112,7 @@ hbs.registerHelper('estudiantes_por_curso', () => {
 
 hbs.registerHelper('cursos_del_estudiante', () => {
     cursos = require('./cursos.json');
+    session = require('./session.json');
     inscripciones = require('./inscripciones.json')
     let curso_inscrip = ``;
     for (let i = 0; i < cursos.length; i++) {
@@ -119,7 +120,7 @@ hbs.registerHelper('cursos_del_estudiante', () => {
         let estudiantes = ``;
         for (let j = 0; j < inscripciones.length; j++) {
             let inscripcion = inscripciones[j];
-            if (inscripcion.id_curso == curso.id) {
+            if (inscripcion.id_curso == curso.id && inscripcion.cedula == session.cedula) {
                 estudiantes += `<form id="formEstudenBycourse" action="viewEstudenByCourse" method="post">
                                 => ESTUDIANTE: ${inscripcion.nombre} 
                                     <div class="row">

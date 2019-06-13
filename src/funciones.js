@@ -226,7 +226,7 @@ const get_usuarioLogin = (UserName,password) =>{
                tipo="ERROR"
                 break;
         };
-        session={usuario: usuario.email,
+        session={usuario: usuario.cedula,
         tipo: tipo};
         guardar_session();
         return usuario.tipo;
