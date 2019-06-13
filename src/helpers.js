@@ -117,37 +117,36 @@ hbs.registerHelper('cursos_del_estudiante', () => {
     let curso_inscrip = ``;
     for (let i = 0; i < cursos.length; i++) {
         let curso = cursos[i];
-        let estudiantes = ``;
         for (let j = 0; j < inscripciones.length; j++) {
             let inscripcion = inscripciones[j];
-            if (inscripcion.id_curso == curso.id && inscripcion.cedula == session.cedula) {
-                estudiantes += `<form id="formEstudenBycourse" action="viewEstudenByCourse" method="post">
-                                => ESTUDIANTE: ${inscripcion.nombre} 
-                                    <div class="row">
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="cedula"
-                                            value="${inscripcion.cedula}">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <input type="text" name="id_curso" class="form-control"  value="${inscripcion.id_curso}">
-                                    </div>
-                                    <div class="col-sm-2">
-                                         <button class="btn btn-primary btn-xs">Eliminar</button>
-                                    </div>
-                                </div>
-                                </form>`;
+            if (inscripcion.id_curso == curso.id && inscripcion.cedula == session.usuario) {
+                curso_inscrip += `<div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">${curso.nombre} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
+                    </div>
+                    <div class="panel-body" style="display: none;">  
+                        <form id="formEstudenBycourse" action="viewEstudenByCourse" method="post">
+                        => ESTUDIANTE: ${inscripcion.nombre} 
+                            <div class="row">
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="cedula"
+                                    value="${inscripcion.cedula}">
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" name="id_curso" class="form-control"  value="${inscripcion.id_curso}">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary btn-xs">Eliminar</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>`;  
             }
         }
-        curso_inscrip += `<div class="col-md-6">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">${curso.nombre} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
-            </div>
-            <div class="panel-body" style="display: none;">  
-               ${estudiantes}
-            </div>
-        </div>
-    </div>`;
+  
     }
     return curso_inscrip;
 });
