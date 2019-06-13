@@ -122,6 +122,7 @@ app.post('/viewEstudenByCourse', (req, res) => {
 * ---login
 */
 app.get('/', (req, res) => {
+  
   res.render('login',{
     mensaje:''
   });
@@ -170,7 +171,7 @@ app.get('/register', (req, res) => {
 });
 app.post('/register', (req, res) => {
   
-
+  
   let save = funciones.crear_usuario(req.body);
   if (save) {
     res.render('login', {

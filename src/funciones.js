@@ -7,7 +7,14 @@ let session =[];
 const listar_cursos = () => {
     try {
         
-        cursos = require('./cursos.json')
+        //cursos = require('./cursos.json')
+        
+        fs.readFile('src/cursos.json', (err, data) => {  
+            if (err) throw err;
+            cursos  = JSON.parse(data);
+           
+        });
+
     } catch (error) {
         cursos = [];
     }
@@ -15,7 +22,13 @@ const listar_cursos = () => {
 
 const listar_inscripciones = () => {
     try {
-        inscripciones = require('./inscripciones.json')
+        //inscripciones = require('./inscripciones.json')
+        fs.readFile('src/inscripciones.json', (err, data) => {  
+            if (err) throw err;
+            inscripciones  = JSON.parse(data);
+           
+        });
+       
     } catch (error) {
         inscripciones = [];
     }
@@ -23,21 +36,31 @@ const listar_inscripciones = () => {
 
 const listar_session = () => {
     try {
-        session = require('./session.json')
+        //session = require('./session.json');
+        fs.readFile('src/session.json', (err, data) => {  
+            if (err) throw err;
+            session  = JSON.parse(data);
+           
+        });
     } catch (error) {
         session = [];
     }
 } 
 
 const listar_usuarios = () => {
-    try {
-        console.log(__dirname);
-        usuraios = require('./usuarios.json')
-        console.log(usuarios)
-    } catch (error) {
-       
-        usuraios = [];
+    
+    try {   
+        fs.readFile('src/usuarios.json', (err, data) => {  
+            if (err) throw err;
+            usuarios  = JSON.parse(data);
+           
+        });
+    }catch(error){
+        console.log(error);
+        usuarios=[];
     }
+        
+    
 } 
 
 const ver_cursos = () => {
@@ -175,9 +198,9 @@ const eliminar_estudiante = (estudiante) => {
 const get_usuarioLogin = (UserName,password) =>{
   
     listar_usuarios();
-    console.log(usuarios);
+    
     let usuario=usuarios.find(data => data.cedula == password && data.email==UserName);
-    console.log(usuario);
+   
     if (!usuario) {
         
         console.log(`El usuario no existe`);
