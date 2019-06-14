@@ -1,39 +1,39 @@
 {{>header}}
 <div class="container">
-    <h3>Login</h3><br>
-
-    <p style="color:green">{{mensaje}}</p><br>
-    <div class="panel panel-primary">
-        <div class="panel-heading">login</div>
-        <div class="panel-body">
-            <div class="sidebar-nav">
-                <div class="well" style="width:300px; padding: 8px 0; height:200px;">
-                    <form id="formLogin" action="login" method="post">
-                        <div class="col-sm-12">
-                            <label for="">Usuario(correo de registro)</label>
-                            <input type="text" name="usuario" id="usuario" class="form-control" required>
-                        </div>
-                        <br>
-                        <div class="col-sm-12">
-                            <label for="">Contraseña(numero de cedula)</label>
-                            <input type="password" name="password" id="password" class="form-control" required>
-                        </div>
-                        <br>
-                        <div class="col-sm-12">
-                            <button class="btn btn-primary" style=" margin-top: 10px;">Login</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="well" style="width:300px; padding: 8px 0;">
-
-                    <ul class="nav nav-list">
-
-                        <li><a href="register"><i></i>Registrarse </a></li>
-                    </ul>
+    <div class="col-sm-offset-1 col-sm-4">
+            <h3>Gestión de Cursos</h3><br>
+         <p style="color:green">{{mensaje}}</p><br>
+        <div class="panel panel-primary">
+            <div class="panel-heading">login</div>
+            <div class="panel-body">
+                <div class="sidebar-nav">
+                    <div class="well" style="width:300px; padding: 8px 0; height:200px;">
+                        <form id="formLogin" action="login" method="post">
+                            <div class="col-sm-12">
+                                <label for="">Usuario (Correo de registro)</label>
+                                <input type="text" name="usuario" id="usuario" class="form-control" required>
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <label for="">Contraseña (Número de cédula)</label>
+                                <input type="password" name="password" id="password" class="form-control" required>
+                            </div>
+                            <br>
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary" style=" margin-top: 10px;">Iniciar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="well" style="width:300px; padding: 8px 0;">
+                        <ul class="nav nav-list">
+                            <li><a href="register"><i></i>Registrarse </a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="col-sm-offset-1">
 {{>footer}}
+</div>

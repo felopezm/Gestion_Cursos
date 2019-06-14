@@ -1,20 +1,25 @@
 {{>header}}
 <div class="container">
-    <h3>Cursos Disponibles</h3><br>
-    <div class="row">
-        {{{cursos_disponibles}}}
-    </div>
+	<h3>Cursos Disponibles</h3><br>
+	<div class="row">
+		{{{cursos_disponibles}}}
+	</div>
+	<div class="row">
+	<form action="/indexaspirante" method="GET">
+		<button class="btn btn-primary" style="margin-left:1%"> <= Menú</button>
+	</form>
+	</div><br>
 </div>
 {{>footer}}
 <script>
-    $(document).on('click', '.panel-heading span.clickable', function(e){
-    var $this = $(this);
-	if(!$this.hasClass('panel-collapsed')) {
-		$this.parents('.panel').find('.panel-body').slideUp();
-		$this.addClass('panel-collapsed');	
-	} else {
-		$this.parents('.panel').find('.panel-body').slideDown();
-		$this.removeClass('panel-collapsed');		
-	}
-})
+	$(document).on('click', '.panel-heading span.clickable', function (e) {
+		var $this = $(this);
+		if (!$this.hasClass('panel-collapsed')) {
+			$this.parents('.panel').find('.panel-body').slideUp();
+			$this.addClass('panel-collapsed');
+		} else {
+			$this.parents('.panel').find('.panel-body').slideDown();
+			$this.removeClass('panel-collapsed');
+		}
+	})
 </script>

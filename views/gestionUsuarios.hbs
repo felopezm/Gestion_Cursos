@@ -7,19 +7,22 @@
         <div>
             <div class="row">
                 <div class="col-md-6">
-                    <label for="cedula">Cedula </label>
-                    <input type="number" class="form-control" id="cedula" name="cedula" required>
+                    <label for="cedula">Cédula </label>
+                    <input type="number" class="form-control" id="cedula" name="cedula" required placeholder="Cedula del Usuario..">
                 </div>
                 <div class="col-md-6">
-                    <label for="tipo">Tipo usuario (1 aspirante, 2 docente, 3 coordinador) </label>
-                    <input type="text" class="form-control" id="tipo" name="tipo" required>
+                    <label for="tipo">Tipo Usuario</label>
+                    <select id="tipo" name="tipo" class="form-control" required>
+                        <option value="1">1 - Aspirante</option>
+                        <option value="2">2 - Docente</option>
+                        <option value="3">3 - Coordinador</option>
+                    </select>
                 </div>
             </div><br>
             <button class="btn btn-primary">Guardar</button>
         </div><br>
     </form>
     <h3>Usuarios:</h3><br>
-    <br>
     <div class="col-md-8">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -32,8 +35,7 @@
                         <th>Nombre</th>
                         <th>email</th>
                         <th>Telefono</th>
-                        <th>Tipo</th>
-                       
+                        <th>Tipo</th>               
                     </tr>
                 </thead>
                 {{{tabla_usuarios}}}
@@ -41,4 +43,9 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <form action="/indexcoordinador" method="GET">
+        <button class="btn btn-primary" style="margin-left:10%"> <= Menú</button>
+    </form>
+</div><br>
 {{>footer}}
