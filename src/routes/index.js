@@ -4,7 +4,8 @@ const path = require('path')
 const hbs = require('hbs')
 const funciones = require('../funciones')
 const Cursos = require('./../models/cursos')
-
+const Usuarios = require('./../models/usuarios')
+const bcrypt = require('bcrypt')
 //Paths
 const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
@@ -220,6 +221,7 @@ app.post('/login', (req, res) => {
 * --- realizar inscripcion usuario
 */
 
+
 app.get('/register', (req, res) => {
     res.render('register', {
         error_inscripcion: ''
@@ -227,20 +229,29 @@ app.get('/register', (req, res) => {
 });
 app.post('/register', (req, res) => {
 
-
-    let save = funciones.crear_usuario(req.body);
-    if (save) {
+   
+    let usuario = new Usuarios({
+        cedula:req.body.cedula,
+        nombre:req.body.nombre,
+        email:req.body.email,
+        telefono:req.body.telefono,
+        tipo:1,
+        password:bcrypt.hashSync(req.body.cedula, 10)
+    });
+    
+    usuario.save((err, result) => {
+        console.log(err)
+        if (err) {
+            return res.render('register', {
+                error_inscripcion: 'Error al registrar' + err
+            });
+            
+        }
         res.render('login', {
-            mensaje: 'Inscripción creada correctamente'
+            mensaje: 'Usuario creado con exito ' + result.nombre
         });
-    } else {
-        res.render('register', {
-            error_inscripcion: 'El usuario ya esta registrado'
-        });
-
-    }
+    })
 });
-
 /*
 * ---gestio usuario
 */
