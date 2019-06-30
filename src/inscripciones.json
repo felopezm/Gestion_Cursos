@@ -1,1 +1,16 @@
-[{"id_curso":"2","cedula":"412355","nombre":"Sebas","email":"sebas@sebas.com","telefono":"5632145"},{"id_curso":"1","cedula":"412355","nombre":"Sebas","email":"sebas@sebas.com","telefono":"5632145"}]
+[
+    {
+        "id_curso": "2",
+        "cedula": "412355",
+        "nombre": "Sebas",
+        "email": "sebas@sebas.com",
+        "telefono": "5632145"
+    },
+    {
+        "id_curso": "1",
+        "cedula": "412355",
+        "nombre": "Sebas",
+        "email": "sebas@sebas.com",
+        "telefono": "5632145"
+    }
+]
