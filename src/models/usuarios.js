@@ -16,7 +16,8 @@ const usuariosSchema = new Schema({
     },
     email: {
         type: String,
-        requeired:true
+        requeired:true,
+        unique: true
     },
     telefono: {
         type: Number,
