@@ -1,7 +1,7 @@
 const hbs = require('hbs');
 
 hbs.registerHelper('cursos', () => {
-    cursos = require('./cursos.json');
+    cursos = require('../cursos.json');
     let inscrip = `<tbody>`;
     cursos.forEach(datos => {
         inscrip += `<tr>
@@ -19,7 +19,7 @@ hbs.registerHelper('cursos', () => {
 });
 
 hbs.registerHelper('cursos_disponibles', () => {
-    cursos = require('./cursos.json');
+    cursos = require('../cursos.json');
     let inscrip = ``;
     cursos.forEach(datos => {
         if (datos.estado != "CERRADO") {
@@ -44,7 +44,7 @@ hbs.registerHelper('cursos_disponibles', () => {
 });
 
 hbs.registerHelper('cursos_inscripcion', () => {
-    cursos = require('./cursos.json');
+    cursos = require('../cursos.json');
     let inscrip = ``;
     cursos.forEach(datos => {
         if (datos.estado != "CERRADO") {
@@ -58,7 +58,7 @@ hbs.registerHelper('cursos_inscripcion', () => {
 });
 
 hbs.registerHelper('cursos_actualizar', () => {
-    cursos = require('./cursos.json');
+    cursos = require('../cursos.json');
     let inscrip = ``;
     cursos.forEach(datos => {
             inscrip += `
@@ -70,8 +70,8 @@ hbs.registerHelper('cursos_actualizar', () => {
 });
 
 hbs.registerHelper('estudiantes_por_curso', () => {
-    cursos = require('./cursos.json');
-    inscripciones = require('./inscripciones.json')
+    cursos = require('../cursos.json');
+    inscripciones = require('../inscripciones.json')
     let curso_inscrip = ``;
     for (let i = 0; i < cursos.length; i++) {
         let curso = cursos[i];
@@ -111,9 +111,9 @@ hbs.registerHelper('estudiantes_por_curso', () => {
 });
 
 hbs.registerHelper('cursos_del_estudiante', () => {
-    cursos = require('./cursos.json');
-    session = require('./session.json');
-    inscripciones = require('./inscripciones.json')
+    cursos = require('../cursos.json');
+    session = require('../session.json');
+    inscripciones = require('../inscripciones.json')
     let curso_inscrip = ``;
     for (let i = 0; i < cursos.length; i++) {
         let curso = cursos[i];

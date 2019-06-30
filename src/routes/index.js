@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const hbs = require('hbs')
+const funciones = require('../funciones')
 
 //Paths
 const dirViews = path.join(__dirname, '../../template/views')

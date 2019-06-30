@@ -5,7 +5,6 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const bodyParser = require('body-parser')
-const funciones = require('./funciones')
 const mongoose = require('mongoose')
 
 //Paths
