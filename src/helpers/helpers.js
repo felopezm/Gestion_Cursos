@@ -18,8 +18,7 @@ hbs.registerHelper('cursos', () => {
     return inscrip;
 });
 
-hbs.registerHelper('cursos_disponibles', () => {
-    cursos = require('../cursos.json');
+hbs.registerHelper('cursos_disponibles', (cursos) => {
     let inscrip = ``;
     cursos.forEach(datos => {
         if (datos.estado != "CERRADO") {

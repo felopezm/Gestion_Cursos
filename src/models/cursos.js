@@ -4,31 +4,40 @@ var uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const cursosSchema = new Schema({
-    nombre: {
+    id: {
         type: String,
         required: true,
         unique: true
-        //trim:true       
     },
-    password: {
+    nombre: {
         type: String,
         required: true
     },
-    matematicas: {
-        type: Number,
-        default: 0,
-        min: 0,
-        max: [5, 'Ingrece un numero menor para matematicas']
+    descripcion: {
+        type: String,
+        required: true
     },
-    ingles: {
+    valor: {
         type: Number,
         default: 0,
         min: 0,
-        max: 5
+    },
+    modalidad: {
+        type: String,
+        default: '',
+    },
+    intensidad: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+    estado: {
+        type: String,
+        required: true
     }
 })
 
 cursosSchema.plugin(uniqueValidator);
-const Estudiante = mongoose.model('Estudiante', estudianteSchema);
+const Cursos = mongoose.model('Cursos', cursosSchema);
 
-module.exports = Estudiante
+module.exports = Cursos
