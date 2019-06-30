@@ -1,7 +1,7 @@
 {{>header}}
 <div class="container">
     <h3>Gestion de usuarios</h3><br>
-    <p style="color:red">{{duplicado}}</p>
+    {{{mensaje}}}
     <br>
     <form id="loginformA" action="gestionUsuarios" method="post">
         <div>
@@ -38,7 +38,7 @@
                         <th>Tipo</th>               
                     </tr>
                 </thead>
-                {{{tabla_usuarios}}}
+                {{{tabla_usuarios usuarios}}}
             </table>
         </div>
     </div>

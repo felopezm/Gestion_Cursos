@@ -147,3 +147,17 @@ hbs.registerHelper('cursos_del_estudiante', () => {
     }
     return curso_inscrip;
 });
+ hbs.registerHelper('tabla_usuarios',(usuarios)=> {
+     let inscrip = `<tbody>`;
+     usuarios.forEach(datos => {
+         inscrip += `<tr>
+                         <td>${datos.cedula}</td>
+                         <td>${datos.nombre}</td>
+                         <td>${datos.email}</td>
+                         <td>${datos.telefono}</td>
+                         <td>${datos.tipo}</td>                
+                     </tr>`;
+     });
+     inscrip += `</tbody>`;
+     return inscrip;
+ });
