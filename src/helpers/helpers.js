@@ -65,9 +65,7 @@ hbs.registerHelper('cursos_actualizar', (cursos) => {
     return inscrip;
 });
 
-hbs.registerHelper('estudiantes_por_curso', () => {
-    cursos = require('../cursos.json');
-    inscripciones = require('../inscripciones.json')
+hbs.registerHelper('estudiantes_por_curso', (cursos,inscripciones) => {
     let curso_inscrip = ``;
     for (let i = 0; i < cursos.length; i++) {
         let curso = cursos[i];
@@ -86,7 +84,7 @@ hbs.registerHelper('estudiantes_por_curso', () => {
                                         <input type="text" name="id_curso" class="form-control"  value="${inscripcion.id_curso}">
                                     </div>
                                     <div class="col-sm-2">
-                                         <button class="btn btn-primary btn-xs">Eliminar</button>
+                                         <button class="btn btn-primary btn-xs" name="_id" value="${inscripcion._id}">Eliminar</button>
                                     </div>
                                 </div>
                                 </form>`;

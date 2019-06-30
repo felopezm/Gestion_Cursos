@@ -6,15 +6,11 @@ const Schema = mongoose.Schema;
 const inscripcionesSchema = new Schema({
     id_curso: {
         type: Number,
-        required: true,
-        
-        //trim:true       
+        required: true,  
     },
     cedula: {
         type: String,
-        required: true,
-   
-        //trim:true       
+        required: true,    
     },
     nombre: {
         type: String,
@@ -23,11 +19,9 @@ const inscripcionesSchema = new Schema({
     email: {
         type: String,
         requeired:true,
-       
     },
     telefono: {
-        type: Number,
-        required:true
+        type: Number
     }
    
 })

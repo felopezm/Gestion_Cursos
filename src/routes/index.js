@@ -98,22 +98,15 @@ app.get('/viewCourse', (req, res) => {
 */
 app.get('/inscriptCourse', (req, res) => {
 
-    let cursos = Cursos.find({}).exec((err, result) => {
-
+  Cursos.find({}).exec((err, result) => {
         if (err) {
-            console.log(err);
-            return [];
+           return console.log(err);
         }
-
-
-        res.render('inscriptCourse', {
+        return res.render('inscriptCourse', {
             error_inscripcion: '',
             cursos: result
         });
-        return;
     });
-
-
 });
 app.post('/inscriptCourse', (req, res) => {
     getDuplicadoInscripcourse(req, res);
@@ -185,21 +178,39 @@ app.post('/updateCourse', (req, res) => {
 * ---Estudiantes por curso
 */
 app.get('/viewEstudenByCourse', (req, res) => {
-    res.render('viewEstudenByCourse', {
-        mensaje: ''
-    });
+    Cursos.find({}).exec((err, result) => {
+        if (err) {       
+            return console.log(err);
+        }
+        let cursos = result;
+        Inscripciones.find({}).exec((err, result2) => {
+            if (err) {          
+                return console.log(err);
+            }
+            res.render('viewEstudenByCourse', {
+                mensaje: '',
+                cursos: cursos,
+                inscripciones: result2
+            });
+        })
+    })
 });
 app.post('/viewEstudenByCourse', (req, res) => {
-    let delete_ = funciones.eliminar_estudiante(req.body);
-    if (delete_) {
-        res.render('indexcoordinador', {
+	Inscripciones.findOneAndDelete({ _id: req.body._id }, req.body, (err, result) => {
+		if (err)
+			return  res.render('viewEstudenByCourse', {
+                mensaje: 'Error al eliminar el estudiante' + err
+            });
+
+		if (!result) {
+			res.render('eliminar', {
+				nombre: 'No encontrado',
+			})
+		}
+	    res.render('indexcoordinador', {
             mensaje: 'Estudiante Eliminado Correctamente'
         });
-    } else {
-        res.render('viewEstudenByCourse', {
-            mensaje: 'Error al eliminar el estudiante'
-        });
-    }
+	})
 });
 /*
 * ---Cursos del estudiante
