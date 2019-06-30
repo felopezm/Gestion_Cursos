@@ -6,11 +6,20 @@ const funciones = require('../funciones')
 const Cursos = require('./../models/cursos')
 const Usuarios = require('./../models/usuarios')
 const bcrypt = require('bcrypt')
+const session =require('express-session')
 //Paths
 const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
 
 require('./../helpers/helpers')
+//Session
+app.use(session({
+    secret:'keyboard cat',
+    resave:false,
+    saveUninitialized:true
+
+}))
+
 
 //hbs
 app.set('view engine', 'hbs')
@@ -190,33 +199,50 @@ app.get('/', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    let tipo = funciones.get_usuarioLogin(req.body.usuario, req.body.password);
-    switch (tipo) {
-        case 0:
-            res.render('login', {
-                mensaje: 'Usuario no existe'
-            });
-            break;
-        case 1:
-            res.render('indexaspirante', {
-                mensaje: ''
-            });
-            break;
-        case 2:
-            res.render('index', {
-                mensaje: ''
-            });
-            break;
-        case 3:
-            res.render('indexcoordinador', {
-                mensaje: ''
-            });
-            break;
-        default:
-            break;
-    }
-});
 
+   
+    Usuarios.findOne({ email: req.body.usuario }, (err, result) => {
+		if (err)
+			return console.log(err);
+
+		if (!result) {
+			return res.render('login', {
+				mensaje: 'Usuario no encontrado',
+			})
+		}
+		if (!bcrypt.compareSync(req.body.password, result.password)) {
+			return res.render('login', {
+				mensaje: 'Contraseña no es correcta'
+			}
+			)
+        }
+        
+        switch (result.tipo) {
+         
+            case 1:
+                res.render('indexaspirante', {
+                    mensaje: ''
+                });
+                break;
+            case 2:
+                res.render('index', {
+                    mensaje: ''
+                });
+                break;
+            case 3:
+                res.render('indexcoordinador', {
+                    mensaje: ''
+                });
+                break;
+            default:
+                break;
+        }
+
+        req.session.usuario=result._id;
+        console.log(req.session.tipoUsuario);
+    
+    });
+});
 /*
 * --- realizar inscripcion usuario
 */
