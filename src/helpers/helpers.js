@@ -1,7 +1,6 @@
 const hbs = require('hbs');
 
-hbs.registerHelper('cursos', () => {
-    cursos = require('../cursos.json');
+hbs.registerHelper('cursos_listado', (cursos) => {
     let inscrip = `<tbody>`;
     cursos.forEach(datos => {
         inscrip += `<tr>
@@ -56,8 +55,7 @@ hbs.registerHelper('cursos_inscripcion', () => {
     return inscrip;
 });
 
-hbs.registerHelper('cursos_actualizar', () => {
-    cursos = require('../cursos.json');
+hbs.registerHelper('cursos_actualizar', (cursos) => {
     let inscrip = ``;
     cursos.forEach(datos => {
             inscrip += `

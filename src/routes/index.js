@@ -36,9 +36,14 @@ app.get('/indexcoordinador', (req, res) => {
 * ---Agregar un nuevo curso
 */
 app.get('/addCourse', (req, res) => {
-    res.render('addCourse', {
-        duplicado: ''
-    });
+    Cursos.find({}).exec((err, result) => {  // dentro del find pueden ir las condiciones de la consulta
+		if (err) {
+			return console.log(err);
+		}
+        res.render('addCourse', {
+            cursos: result
+        });
+	})
 });
 app.post('/addCourse', (req, res) => {
     let curso = new Cursos({
@@ -52,8 +57,9 @@ app.post('/addCourse', (req, res) => {
     });
     curso.save((err, result) => {
         if (err) {
-            res.render('addCourse', {
-                duplicado: 'Error al guardar el curso ' + err
+           return res.render('addCourse', {
+                duplicado: 'Error al guardar el curso ' + err,
+                cursos: []
             });
         }
         res.render('indexcoordinador', {
@@ -108,21 +114,28 @@ app.post('/inscriptCourse', (req, res) => {
 * ---actualizar curso
 */
 app.get('/updateCourse', (req, res) => {
-    res.render('updateCourse', {
-        error_actualizar: ''
-    });
+    Cursos.find({}).exec((err, result) => { 
+		if (err) {
+			return console.log(err);
+		}
+        res.render('updateCourse', {
+            error_actualizar: '',
+            cursos:result
+        });
+	})
+
 });
 app.post('/updateCourse', (req, res) => {
-    let save = funciones.actualizar_curso(req.body);
-    if (save) {
-        res.render('indexcoordinador', {
-            mensaje: 'Curso Actualizado Correctamente'
-        });
-    } else {
-        res.render('updateCourse', {
-            error_actualizar: 'Error al actualizar el estado del curso'
-        });
-    }
+    Cursos.findOneAndUpdate({ id: req.body.id }, req.body, { new: true, runValidators: true, context: 'query' }, (err, result) => {
+		if (err) {
+            return res.render('updateCourse', {
+                error_actualizar: 'Error al actualizar el estado del curso, ' + err
+            });
+		} 
+		res.render('indexcoordinador', {
+            mensaje: `Curso ${result.nombre}, Actualizado Correctamente`
+		})
+    })
 });
 
 /*
