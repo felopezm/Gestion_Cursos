@@ -281,42 +281,60 @@ app.post('/register', (req, res) => {
 /*
 * ---gestio usuario
 */
-
 app.get('/gestionUsuarios', (req, res) => {
-
-    let tabla = funciones.tablar_usuarios();
-    console.log(tabla);
-    res.render('gestionUsuarios', {
-        error_inscripcion: '',
-        tabla_usuarios: tabla
-    });
+    Usuarios.find({}).exec((err, result) => {  
+        if (err) {
+            return res.render('gestionUsuarios', {
+                mensaje: `<p style="color:red">Error ${err}</p>`,
+                usuarios: []
+            });
+        }
+        res.render('gestionUsuarios', {
+            mensaje: '',
+            usuarios: result
+        });
+    })
 });
 app.post('/gestionUsuarios', (req, res) => {
-
-    let result = funciones.actualizar_TipoUsuario(req.body.cedula, req.body.tipo);
-    if (result) {
-        let tabla = funciones.tablar_usuarios();
-        console.log(tabla);
-        res.render('gestionUsuarios', {
-            mensaje: 'cambio exitoso',
-            tabla_usuarios: tabla
-        });
-    }
-    else {
-        let tabla = funciones.tablar_usuarios();
-        console.log(tabla);
-        res.render('gestionUsuarios', {
-            error_inscripcion: 'usuario no existe',
-            tabla_usuarios: tabla
-        });
-    }
-
+    Usuarios.findOneAndUpdate({ cedula: req.body.cedula }, req.body, { new: true, runValidators: true, context: 'query' }, (err, result) => {
+        if (err) {
+            return res.render('gestionUsuarios', {
+                mensaje: `<p style="color:red">Error ${err}</p>`,
+                usuarios: []
+            })
+        }
+        else if (result) {
+            Usuarios.find({}).exec((err, result) => {
+                if (err) {
+                    return res.render('gestionUsuarios', {
+                        mensaje: `<p style="color:red">Error ${err}</p>`,
+                        usuarios: []
+                    })
+                }
+                res.render('gestionUsuarios', {
+                    mensaje: '<p style="color:green">Cambio exitoso </p>',
+                    usuarios: result
+                });
+            })
+        }else {
+            Usuarios.find({}).exec((err, result) => {
+                if (err) {
+                    return res.render('gestionUsuarios', {
+                        mensaje: `<p style="color:red">Error ${err}</p>`,
+                        usuarios: []
+                    })
+                }
+                res.render('gestionUsuarios', {
+                    mensaje: '<p style="color:red">Usuario no existe, validar cedula </p>',
+                    usuarios: result
+                })
+            })
+        }
+    })
 });
-
 /*
 * ---Si ahi algun error en la url
 */
-
 app.get('*', (req, res) => {
     res.render('error', {
         estudiante: 'error'
