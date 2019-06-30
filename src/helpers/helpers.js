@@ -104,16 +104,14 @@ hbs.registerHelper('estudiantes_por_curso', (cursos,inscripciones) => {
     return curso_inscrip;
 });
 
-hbs.registerHelper('cursos_del_estudiante', () => {
-    cursos = require('../cursos.json');
-    session = require('../session.json');
-    inscripciones = require('../inscripciones.json')
+hbs.registerHelper('cursos_del_estudiante', (cursos, inscripciones, usuario) => {
+ console.log(usuario);
     let curso_inscrip = ``;
     for (let i = 0; i < cursos.length; i++) {
         let curso = cursos[i];
         for (let j = 0; j < inscripciones.length; j++) {
             let inscripcion = inscripciones[j];
-            if (inscripcion.id_curso == curso.id && inscripcion.cedula == session.usuario) {
+            if (inscripcion.id_curso == curso.id && inscripcion.cedula == usuario.cedula) {
                 curso_inscrip += `<div class="col-md-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">

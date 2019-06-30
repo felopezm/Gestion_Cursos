@@ -216,21 +216,57 @@ app.post('/viewEstudenByCourse', (req, res) => {
 * ---Cursos del estudiante
 */
 app.get('/viewCoursesOffEstuden', (req, res) => {
-    res.render('viewCoursesOffEstuden', {
-        mensaje: ''
-    });
+
+    
+    Cursos.find({}).exec((err, result) => {
+    
+        if (err) {       
+            return console.log(err);
+        }
+        let cursos = result;
+        Inscripciones.find({}).exec((err, result2) => {
+            if (err) {          
+                return console.log(err);
+            }
+            let inscripciones =result2
+            Usuarios.findOne({_id:req.session.usuario}).exec((err, result3) => {
+                if (err) {          
+                    return console.log(err);
+                }
+               
+                res.render('viewCoursesOffEstuden', {
+                    mensaje: '',
+                    cursos: cursos, 
+                    inscripciones: inscripciones, 
+                    usuario:result3
+                });
+
+            })
+         
+        })
+    })
+
+    
 });
 app.post('/viewCoursesOffEstuden', (req, res) => {
-    let delete_ = funciones.eliminar_estudiante(req.body);
-    if (delete_) {
-        res.render('indexaspirante', {
+ 
+    
+    Inscripciones.findOneAndDelete({ cedula: req.body.cedula, id_curso:req.body.id_curso }, req.body, (err, result) => {
+		if (err)
+			return  res.render('indexaspirante', {
+                mensaje: 'Error al eliminar el estudiante' + err
+            });
+
+		if (!result) {
+			res.render('indexaspirante', {
+				nombre: 'No encontrado',
+			})
+		}
+	    res.render('indexaspirante', {
             mensaje: 'Estudiante Eliminado Correctamente'
         });
-    } else {
-        res.render('viewCoursesOffEstuden', {
-            mensaje: 'Error al eliminar el estudiante'
-        });
-    }
+	})
+
 });
 /*
 * ---login
