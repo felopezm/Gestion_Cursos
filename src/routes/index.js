@@ -37,6 +37,11 @@ app.get('/indexaspirante', (req, res) => {
         mensaje: ''
     });
 });
+app.get('/indexdocente', (req, res) => {
+    res.render('indexdocente', {
+        mensaje: ''
+    });
+});
 app.get('/indexcoordinador', (req, res) => {
     res.render('indexcoordinador', {
         mensaje: ''
@@ -204,6 +209,7 @@ app.post('/updateCourse', (req, res) => {
 * ---Estudiantes por curso docente
 */
 app.get('/viewEstudenByCourseDoc', (req, res) => {
+   
     Usuarios.findOne({_id:req.session.usuario}).exec((err,result)=>{
 
 
@@ -481,5 +487,7 @@ app.get('*', (req, res) => {
         estudiante: 'error'
     });
 });
+
+
 
 module.exports = app
