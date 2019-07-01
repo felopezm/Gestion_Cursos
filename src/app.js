@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 app.use(require('./routes/index'));
 
-mongoose.connect('mongodb://localhost:27017/gestion_cursos', { useNewUrlParser: true }, (err) => {
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
 	if (err) {
 		return console.log(err);
 	}
