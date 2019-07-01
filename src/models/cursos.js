@@ -34,6 +34,9 @@ const cursosSchema = new Schema({
     estado: {
         type: String,
         required: true
+    },
+    docente:{
+        type:String
     }
 })
 
