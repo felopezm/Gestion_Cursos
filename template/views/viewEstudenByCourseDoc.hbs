@@ -1,0 +1,26 @@
+{{>header}}
+<div class="container">
+	<h3>Estudiantes por Curso</h3><br>
+	<p style="color:red">{{mensaje}}</p><br>
+	<div class="row">
+		{{{estudiantes_por_cursoDoc cursos inscripciones}}}
+	</div>
+	<div class="row">
+        <form action="/indexdocente" method="GET">
+            <button class="btn btn-primary" style="margin-left:1%"> <= Menú</button>
+        </form>
+    </div><br>
+</div>
+{{>footer}}
+<script>
+	$(document).on('click', '.panel-heading span.clickable', function (e) {
+		var $this = $(this);
+		if (!$this.hasClass('panel-collapsed')) {
+			$this.parents('.panel').find('.panel-body').slideUp();
+			$this.addClass('panel-collapsed');
+		} else {
+			$this.parents('.panel').find('.panel-body').slideDown();
+			$this.removeClass('panel-collapsed');
+		}
+	})
+</script>

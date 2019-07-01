@@ -65,6 +65,34 @@ hbs.registerHelper('cursos_actualizar', (cursos) => {
     return inscrip;
 });
 
+
+hbs.registerHelper('estudiantes_por_cursoDoc', (cursos,inscripciones) => {
+    let curso_inscrip = ``;
+    for (let i = 0; i < cursos.length; i++) {
+        let curso = cursos[i];
+        let estudiantes = ``;
+        for (let j = 0; j < inscripciones.length; j++) {
+            let inscripcion = inscripciones[j];
+            if (inscripcion.id_curso == curso.id) {
+                estudiantes += `<form id="formEstudenBycourse" action="viewEstudenByCourse" method="post">
+                                => ESTUDIANTE: ${inscripcion.nombre} cedula: ${inscripcion.cedula}  Correo: ${inscripcion.email} Telefono: ${inscripcion.telefono} 
+                                </form>`;
+            }
+        }
+        curso_inscrip += `<div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">${curso.nombre} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
+            </div>
+            <div class="panel-body" style="display: none;">  
+               ${estudiantes}
+            </div>
+        </div>
+    </div>`;
+    }
+    return curso_inscrip;
+});
+
 hbs.registerHelper('estudiantes_por_curso', (cursos,inscripciones) => {
     let curso_inscrip = ``;
     for (let i = 0; i < cursos.length; i++) {

@@ -64,7 +64,8 @@ app.post('/addCourse', (req, res) => {
         valor: req.body.valor,
         modalidad: req.body.modalidad,
         intensidad: req.body.intensidad,
-        estado: 'DISPONIBLE'
+        estado: 'DISPONIBLE',
+        docente:''
     });
     curso.save((err, result) => {
         if (err) {
@@ -162,17 +163,77 @@ app.get('/updateCourse', (req, res) => {
 
 });
 app.post('/updateCourse', (req, res) => {
+
+    console.log(req);
+
+    if(req.body.estado=="CERRADO" && req.body.docente==""){
+        Cursos.find({}).exec((err, result) => {
+            if (err) {
+                return console.log(err);
+            }
+            res.render('updateCourse', {
+                error_actualizar: 'Por favor ingrese cedula del docente',
+                cursos: result
+            });
+        })
+
+    }
     Cursos.findOneAndUpdate({ id: req.body.id }, req.body, { new: true, runValidators: true, context: 'query' }, (err, result) => {
         if (err) {
-            return res.render('updateCourse', {
-                error_actualizar: 'Error al actualizar el estado del curso, ' + err
-            });
+
+            Cursos.find({}).exec((err, result) => {
+                if (err) {
+                    return console.log(err);
+                }
+                res.render('updateCourse', {
+                    error_actualizar: 'Error al actualizar el estado del curso, ' + err,
+                    cursos: result
+                });
+            })
+            
         }
         res.render('indexcoordinador', {
             mensaje: `Curso ${result.nombre}, Actualizado Correctamente`
         })
     })
 });
+
+
+
+/*
+* ---Estudiantes por curso docente
+*/
+app.get('/viewEstudenByCourseDoc', (req, res) => {
+    Usuarios.findOne({_id:req.session.usuario}).exec((err,result)=>{
+
+
+        Cursos.find({docente:result.cedula}).exec((err, result2) => {
+            if (err) {       
+                return console.log(err);
+            }
+            let cursos = result2;
+            Inscripciones.find({}).exec((err, result3) => {
+                if (err) {          
+                    return console.log(err);
+                }
+                res.render('viewEstudenByCourseDoc', {
+                    mensaje: '',
+                    cursos: cursos,
+                    inscripciones: result3
+                });
+            })
+        })
+
+    });
+
+    
+});
+app.post('/viewEstudenByCourseDoc', (req, res) => {
+
+});
+
+
+
 
 /*
 * ---Estudiantes por curso
@@ -305,7 +366,7 @@ app.post('/login', (req, res) => {
                 });
                 break;
             case 2:
-                res.render('index', {
+                res.render('indexdocente', {
                     mensaje: ''
                 });
                 break;
