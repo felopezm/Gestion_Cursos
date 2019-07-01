@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const hbs = require('hbs')
-const funciones = require('../funciones')
 const Cursos = require('./../models/cursos')
 const Usuarios = require('./../models/usuarios')
 const Inscripciones = require('./../models/inscripciones')
@@ -13,6 +12,7 @@ const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
 
 require('./../helpers/helpers')
+
 //Session
 app.use(session({
     secret: 'keyboard cat',
@@ -20,7 +20,6 @@ app.use(session({
     saveUninitialized: true
 
 }))
-
 
 //hbs
 app.set('view engine', 'hbs')
@@ -47,7 +46,6 @@ app.get('/indexcoordinador', (req, res) => {
         mensaje: ''
     });
 });
-
 /*
 * ---Agregar un nuevo curso
 */
@@ -70,7 +68,7 @@ app.post('/addCourse', (req, res) => {
         modalidad: req.body.modalidad,
         intensidad: req.body.intensidad,
         estado: 'DISPONIBLE',
-        docente:''
+        docente: ''
     });
     curso.save((err, result) => {
         if (err) {
@@ -104,9 +102,9 @@ app.get('/viewCourse', (req, res) => {
 */
 app.get('/inscriptCourse', (req, res) => {
 
-  Cursos.find({}).exec((err, result) => {
+    Cursos.find({}).exec((err, result) => {
         if (err) {
-           return console.log(err);
+            return console.log(err);
         }
         return res.render('inscriptCourse', {
             error_inscripcion: '',
@@ -171,7 +169,7 @@ app.post('/updateCourse', (req, res) => {
 
     console.log(req);
 
-    if(req.body.estado=="CERRADO" && req.body.docente==""){
+    if (req.body.estado == "CERRADO" && req.body.docente == "") {
         Cursos.find({}).exec((err, result) => {
             if (err) {
                 return console.log(err);
@@ -195,7 +193,7 @@ app.post('/updateCourse', (req, res) => {
                     cursos: result
                 });
             })
-            
+
         }
         res.render('indexcoordinador', {
             mensaje: `Curso ${result.nombre}, Actualizado Correctamente`
@@ -209,17 +207,17 @@ app.post('/updateCourse', (req, res) => {
 * ---Estudiantes por curso docente
 */
 app.get('/viewEstudenByCourseDoc', (req, res) => {
-   
-    Usuarios.findOne({_id:req.session.usuario}).exec((err,result)=>{
+
+    Usuarios.findOne({ _id: req.session.usuario }).exec((err, result) => {
 
 
-        Cursos.find({docente:result.cedula}).exec((err, result2) => {
-            if (err) {       
+        Cursos.find({ docente: result.cedula }).exec((err, result2) => {
+            if (err) {
                 return console.log(err);
             }
             let cursos = result2;
             Inscripciones.find({}).exec((err, result3) => {
-                if (err) {          
+                if (err) {
                     return console.log(err);
                 }
                 res.render('viewEstudenByCourseDoc', {
@@ -232,7 +230,7 @@ app.get('/viewEstudenByCourseDoc', (req, res) => {
 
     });
 
-    
+
 });
 app.post('/viewEstudenByCourseDoc', (req, res) => {
 
@@ -246,12 +244,12 @@ app.post('/viewEstudenByCourseDoc', (req, res) => {
 */
 app.get('/viewEstudenByCourse', (req, res) => {
     Cursos.find({}).exec((err, result) => {
-        if (err) {       
+        if (err) {
             return console.log(err);
         }
         let cursos = result;
         Inscripciones.find({}).exec((err, result2) => {
-            if (err) {          
+            if (err) {
                 return console.log(err);
             }
             res.render('viewEstudenByCourse', {
@@ -263,76 +261,76 @@ app.get('/viewEstudenByCourse', (req, res) => {
     })
 });
 app.post('/viewEstudenByCourse', (req, res) => {
-	Inscripciones.findOneAndDelete({ _id: req.body._id }, req.body, (err, result) => {
-		if (err)
-			return  res.render('viewEstudenByCourse', {
+    Inscripciones.findOneAndDelete({ _id: req.body._id }, req.body, (err, result) => {
+        if (err)
+            return res.render('viewEstudenByCourse', {
                 mensaje: 'Error al eliminar el estudiante' + err
             });
 
-		if (!result) {
-			res.render('eliminar', {
-				nombre: 'No encontrado',
-			})
-		}
-	    res.render('indexcoordinador', {
+        if (!result) {
+            res.render('eliminar', {
+                nombre: 'No encontrado',
+            })
+        }
+        res.render('indexcoordinador', {
             mensaje: 'Estudiante Eliminado Correctamente'
         });
-	})
+    })
 });
 /*
 * ---Cursos del estudiante
 */
 app.get('/viewCoursesOffEstuden', (req, res) => {
 
-    
+
     Cursos.find({}).exec((err, result) => {
-    
-        if (err) {       
+
+        if (err) {
             return console.log(err);
         }
         let cursos = result;
         Inscripciones.find({}).exec((err, result2) => {
-            if (err) {          
+            if (err) {
                 return console.log(err);
             }
-            let inscripciones =result2
-            Usuarios.findOne({_id:req.session.usuario}).exec((err, result3) => {
-                if (err) {          
+            let inscripciones = result2
+            Usuarios.findOne({ _id: req.session.usuario }).exec((err, result3) => {
+                if (err) {
                     return console.log(err);
                 }
-               
+
                 res.render('viewCoursesOffEstuden', {
                     mensaje: '',
-                    cursos: cursos, 
-                    inscripciones: inscripciones, 
-                    usuario:result3
+                    cursos: cursos,
+                    inscripciones: inscripciones,
+                    usuario: result3
                 });
 
             })
-         
+
         })
     })
 
-    
+
 });
 app.post('/viewCoursesOffEstuden', (req, res) => {
- 
-    
-    Inscripciones.findOneAndDelete({ cedula: req.body.cedula, id_curso:req.body.id_curso }, req.body, (err, result) => {
-		if (err)
-			return  res.render('indexaspirante', {
+
+
+    Inscripciones.findOneAndDelete({ cedula: req.body.cedula, id_curso: req.body.id_curso }, req.body, (err, result) => {
+        if (err)
+            return res.render('indexaspirante', {
                 mensaje: 'Error al eliminar el estudiante' + err
             });
 
-		if (!result) {
-			res.render('indexaspirante', {
-				nombre: 'No encontrado',
-			})
-		}
-	    res.render('indexaspirante', {
+        if (!result) {
+            res.render('indexaspirante', {
+                nombre: 'No encontrado',
+            })
+        }
+        res.render('indexaspirante', {
             mensaje: 'Estudiante Eliminado Correctamente'
         });
-	})
+    })
 
 });
 /*
@@ -487,7 +485,5 @@ app.get('*', (req, res) => {
         estudiante: 'error'
     });
 });
-
-
 
 module.exports = app
