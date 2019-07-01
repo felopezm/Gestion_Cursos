@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 app.use(require('./routes/index'));
 
-mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
+mongoose.connect('mongodb+srv://fede:fede@cluster0-2wst6.mongodb.net/gestion_cursos?retryWrites=true&w=majority', { useNewUrlParser: true }, (err) => {
 	if (err) {
 		return console.log(err);
 	}
