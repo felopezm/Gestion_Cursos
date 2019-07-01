@@ -3,6 +3,7 @@ const hbs = require('hbs');
 hbs.registerHelper('cursos_listado', (cursos) => {
     let inscrip = `<tbody>`;
     cursos.forEach(datos => {
+        let docente = datos.docente ? datos.docente: "POR DEFINIR"
         inscrip += `<tr>
                         <td>${datos.id}</td>
                         <td>${datos.nombre}</td>
@@ -11,6 +12,7 @@ hbs.registerHelper('cursos_listado', (cursos) => {
                         <td>${datos.modalidad}</td>
                         <td>${datos.intensidad}</td>
                         <td>${datos.estado}</td>
+                        <td>${docente}</td>
                     </tr>`;
     });
     inscrip += `</tbody>`;
@@ -22,7 +24,7 @@ hbs.registerHelper('cursos_disponibles', (cursos) => {
     cursos.forEach(datos => {
         if (datos.estado != "CERRADO") {
             inscrip += `<div class="col-md-6">
-            <div class="panel panel-primary">
+            <div class="panel panel-success">
                 <div class="panel-heading">
                     <h3 class="panel-title">${datos.nombre}  -  ${datos.descripcion}  -  $ ${datos.valor} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
                 </div>
@@ -80,7 +82,7 @@ hbs.registerHelper('estudiantes_por_cursoDoc', (cursos,inscripciones) => {
             }
         }
         curso_inscrip += `<div class="col-md-12">
-        <div class="panel panel-primary">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">${curso.nombre} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
             </div>
@@ -112,14 +114,14 @@ hbs.registerHelper('estudiantes_por_curso', (cursos,inscripciones) => {
                                         <input type="text" name="id_curso" class="form-control"  value="${inscripcion.id_curso}">
                                     </div>
                                     <div class="col-sm-2">
-                                         <button class="btn btn-primary btn-xs" name="_id" value="${inscripcion._id}">Eliminar</button>
+                                         <button class="btn btn-success btn-xs" name="_id" value="${inscripcion._id}">Eliminar</button>
                                     </div>
                                 </div>
                                 </form>`;
             }
         }
         curso_inscrip += `<div class="col-md-6">
-        <div class="panel panel-primary">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">${curso.nombre} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
             </div>
@@ -141,7 +143,7 @@ hbs.registerHelper('cursos_del_estudiante', (cursos, inscripciones, usuario) => 
             let inscripcion = inscripciones[j];
             if (inscripcion.id_curso == curso.id && inscripcion.cedula == usuario.cedula) {
                 curso_inscrip += `<div class="col-md-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-success">
                     <div class="panel-heading">
                         <h3 class="panel-title">${curso.nombre} <span class="pull-right clickable panel-collapsed">Ver Detalles</span></h3>
                     </div>
@@ -157,7 +159,7 @@ hbs.registerHelper('cursos_del_estudiante', (cursos, inscripciones, usuario) => 
                                 <input type="text" name="id_curso" class="form-control"  value="${inscripcion.id_curso}">
                             </div>
                             <div class="col-sm-2">
-                                <button class="btn btn-primary btn-xs">Eliminar</button>
+                                <button class="btn btn-success btn-xs">Eliminar</button>
                             </div>
                         </div>
                         </form>

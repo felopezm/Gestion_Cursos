@@ -1,17 +1,17 @@
 {{>header}}
-<div class="container">
-    <h3>Gestion de usuarios</h3><br>
+<div class="row">
+    <h3>Gestion de usuarios</h3>
     {{{mensaje}}}
     <br>
     <form id="loginformA" action="gestionUsuarios" method="post">
         <div>
             <div class="row">
                 <div class="col-md-6">
-                    <label for="cedula">Cédula </label>
+                    <label for="cedula">Cédula<span class="ft-appengine-field-required">*</span></label>
                     <input type="number" class="form-control" id="cedula" name="cedula" required placeholder="Cedula del Usuario..">
                 </div>
                 <div class="col-md-6">
-                    <label for="tipo">Tipo Usuario</label>
+                    <label for="tipo">Tipo Usuario<span class="ft-appengine-field-required">*</span></label>
                     <select id="tipo" name="tipo" class="form-control" required>
                         <option value="1">1 - Aspirante</option>
                         <option value="2">2 - Docente</option>
@@ -19,12 +19,12 @@
                     </select>
                 </div>
             </div><br>
-            <button class="btn btn-primary">Guardar</button>
+            <button class="btn btn-success">Guardar</button>
         </div><br>
     </form>
     <h3>Usuarios:</h3><br>
     <div class="col-md-8">
-        <div class="panel panel-primary">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">Cursos</h3>
             </div>
@@ -45,7 +45,7 @@
 </div>
 <div class="row">
     <form action="/indexcoordinador" method="GET">
-        <button class="btn btn-primary" style="margin-left:10%"> <= Menú</button>
+        <button class="btn btn-success"> <= Menú</button>
     </form>
 </div><br>
 {{>footer}}

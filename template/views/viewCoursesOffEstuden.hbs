@@ -1,15 +1,14 @@
 {{>header}}
-<div class="container">
-	<h3>Mis Cursos Inscritos</h3><br>
+<div class="row">
+	<h3>Mis Cursos Inscritos</h3>
 	<p style="color:red">{{mensaje}}</p><br>
 	<div class="row">
 		{{{cursos_del_estudiante cursos inscripciones usuario}}}
 	</div><br>
 		<form action="/indexaspirante" method="GET">
-		<button class="btn btn-primary" style="margin-left:1%"> <= Menú</button>
+		<button class="btn btn-success" style="margin-left:1%"> <= Menú</button>
 	</form>
-	</div><br>
-</div>
+</div><br>
 {{>footer}}
 <script>
 	$(document).on('click', '.panel-heading span.clickable', function (e) {

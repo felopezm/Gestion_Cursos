@@ -1,0 +1,12 @@
+.jumbotron {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+a {
+    color: #131415 !important;
+    text-decoration: none;
+    font-size: larger;
+}
+.ft-appengine-field-required {
+    color: red;
+}

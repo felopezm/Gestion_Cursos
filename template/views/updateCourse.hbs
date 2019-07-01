@@ -1,35 +1,35 @@
 {{>header}}
 <div class="container">
-    <h3>Actualizar estado a los Curso</h3><br>
+    <h3>Actualizar estado a los Curso</h3>
     <p style="color:red">{{error_actualizar}}</p><br>
     <div class="row">
         <div class="column col-sm-4">
             <form id="formInscripcion" action="updateCourse" method="post">
                 <div class="row">
                     <div class="col-sm-6">
-                        <label for="">Cursos</label>
+                        <label for="">Cursos<span class="ft-appengine-field-required">*</span></label>
                         <select name="id" id="id" class="form-control">
                             <option value=""></option>
                             {{{cursos_actualizar cursos}}}
                         </select>
                     </div>
                     <div class="col-sm-6">
-                        <label for="">Estados</label>
+                        <label for="">Estados<span class="ft-appengine-field-required">*</span></label>
                         <select name="estado" id="estado" class="form-control">
                             <option value="DISPONIBLE">DISPONIBLE</option>
                             <option value="CERRADO">CERRADO</option>
                         </select>
                     </div>
                       <div class="col-sm-6">
-                        <label for="">Cedula docente:</label>
-                         <input type="number" name="docente" id="docente" class="form-control" >
+                        <label for="">Cedula docente<span class="ft-appengine-field-required">*</span></label>
+                         <input type="number" name="docente" id="docente" placeholder="Cedula.." class="form-control" >
                     </div>
                 </div><br>
-                <button class="btn btn-primary">Guardar</button>
+                <button class="btn btn-success">Guardar</button>
             </form><br>
         </div>
         <div class="column col-sm-8">
-            <div class="panel panel-primary">
+            <div class="panel panel-success">
                 <div class="panel-heading">
                     <h3 class="panel-title">Cursos</h3>
                 </div>
@@ -43,6 +43,7 @@
                             <th>Modalidad</th>
                             <th>Intensidad H.</th>
                             <th>Estado</th>
+                            <th>Docente</th>
                         </tr>
                     </thead>
                     {{{cursos_listado cursos}}}
@@ -51,7 +52,7 @@
         </div>
         <div class="row">
             <form action="/indexcoordinador" method="GET">
-                <button class="btn btn-primary" style="margin-left:2%"> <= Menú</button>
+                <button class="btn btn-success" style="margin-left:2%"> <= Menú</button>
             </form>
         </div><br>
     </div>

@@ -1,32 +1,32 @@
 {{>header}}
-<div class="container">
-    <h3>Agregar un nuevo curso</h3><br>
+<div class="row">
+    <h3>Agregar un nuevo curso</h3>
     <p style="color:red">{{duplicado}}</p>
     <br>
     <form id="loginformA" action="addCourse" method="post">
         <div>
             <div class="row">
                 <div class="col-md-3">
-                    <label for="id">Id Curso: </label>
+                    <label for="id">Id Curso<span class="ft-appengine-field-required">*</span></label>
                     <input type="number" class="form-control" id="id" name="id" required placeholder="ID Curso..">
                 </div>
                 <div class="col-md-3">
-                    <label for="nombre">Nombre Completo: </label>
+                    <label for="nombre">Nombre Completo<span class="ft-appengine-field-required">*</span></label>
                     <input type="text" class="form-control" id="nombre" name="nombre" required placeholder="Nombre del Curso..">
                 </div>
                 <div class="col-md-3">
-                    <label for="descripcion">Descripción: </label>
+                    <label for="descripcion">Descripción<span class="ft-appengine-field-required">*</span></label>
                     <textarea placeholder="Agregar una descripción" required class="form-control" id="descripcion"
                         name="descripcion"></textarea>
                 </div>
             </div><br>
             <div class="row">
                 <div class="col-sm-3">
-                    <label for="valor">Valor: </label>
+                    <label for="valor">Valor<span class="ft-appengine-field-required">*</span></label>
                     <input type="number" class="form-control" id="valor" name="valor" required placeholder="Valor del Curso..">
                 </div>
                 <div class="col-sm-3">
-                    <label for="modalidad">Modalidad:</label>
+                    <label for="modalidad">Modalidad<span class="ft-appengine-field-required">*</span></label>
                     <select class="form-control" name="modalidad" id="modalidad">
                         <option value="-">-</option>
                         <option value="VIRTUAL">Virtual</option>
@@ -34,21 +34,21 @@
                     </select>
                 </div>
                 <div class="col-sm-3">
-                    <label for="intensidad">Intensidad Horaria: </label>
+                    <label for="intensidad">Intensidad Horaria</label>
                     <input type="number" class="form-control" id="intensidad" name="intensidad" placeholder="Intencidad Horaria..">
                 </div>
             </div><br>
-            <button class="btn btn-primary">Guardar</button>
+            <button class="btn btn-success">Guardar</button>
         </div><br>
     </form>
     <div class="row">
         <form action="/indexcoordinador" method="GET">
-            <button class="btn btn-primary" style="margin-left:1%"> <= Menú</button>
+            <button class="btn btn-success" style="margin-left:1%"> <= Menú</button>
         </form>
     </div>
     <h3>Cursos agregados</h3><br>
-    <div class="col-md-9">
-        <div class="panel panel-primary">
+    <div class="col-md-10">
+        <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">Cursos</h3>
             </div>
@@ -62,6 +62,7 @@
                         <th>Modalidad</th>
                         <th>Intensidad H.</th>
                         <th>Estado</th>
+                        <th>Docente</th>
                     </tr>
                 </thead>
                 {{{cursos_listado cursos}}}

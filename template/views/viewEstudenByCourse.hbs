@@ -1,13 +1,13 @@
 {{>header}}
-<div class="container">
-	<h3>Estudiantes por Curso</h3><br>
+<div class="row">
+	<h3>Estudiantes por Curso</h3>
 	<p style="color:red">{{mensaje}}</p><br>
 	<div class="row">
 		{{{estudiantes_por_curso cursos inscripciones}}}
 	</div>
 	<div class="row">
         <form action="/indexcoordinador" method="GET">
-            <button class="btn btn-primary" style="margin-left:1%"> <= Menú</button>
+            <button class="btn btn-success" style="margin-left:1%"> <= Menú</button>
         </form>
     </div><br>
 </div>

@@ -1,13 +1,13 @@
 {{>header}}
-<div class="container">
-    <h3>Inscripción a Cursos</h3><br>
-    <p style="color:red">{{error_inscripcion}}</p><br>
+<div class="row">
+    <h3>Inscripción a Cursos</h3>
+    <p style="color:red">{{error_inscripcion}}</p>
      <p style="color:green">{{mensaje}}</p><br>
     <form id="formInscripcion" action="inscriptCourse" method="post">
         <div class="row">
             <div class="col-sm-3">
-                <label for="">Cursos</label>
-                <select name="id_curso" id="id_curso" class="form-control">
+                <label for="">Cursos<span class="ft-appengine-field-required">*</span></label>
+                <select name="id_curso" id="id_curso" class="form-control" required>
                       <option value=""></option>
                     {{{cursos_inscripcion cursos}}}
                 </select>
@@ -15,29 +15,28 @@
         </div><br>
         <div class="row">
             <div class="col-sm-3">
-                <label for="">Identificación</label>
-                <input type="number" name="cedula" id="cedula" class="form-control" required>
+                <label for="">Identificación<span class="ft-appengine-field-required">*</span></label>
+                <input type="number" name="cedula" id="cedula" placeholder="Identificación.." class="form-control" required>
             </div>
             <div class="col-sm-3">
-                <label for="">Nombre</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" required>
+                <label for="">Nombre<span class="ft-appengine-field-required">*</span></label>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre.." class="form-control" required>
             </div>
             <div class="col-sm-3">
-                <label for="">Correo</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <label for="">Correo<span class="ft-appengine-field-required">*</span></label>
+                <input type="email" name="email" id="email" placeholder="Correo electronico.." class="form-control" required>
             </div>
         </div><br>
         <div class="row">
             <div class="col-sm-3">
-                <label for="">Teléfono</label>
-                <input type="tel" name="telefono" id="telefono" class="form-control" required>
+                <label for="">Teléfono<span class="ft-appengine-field-required">*</span></label>
+                <input type="tel" name="telefono" id="telefono" placeholder="Número telefonico.." class="form-control" required>
             </div>
         </div><br>
-        <button class="btn btn-primary">Guardar</button>
+        <button class="btn btn-success">Guardar</button>
     </form><br>
     	<form action="/indexaspirante" method="GET">
-		<button class="btn btn-primary"> <= Menú</button>
+		<button class="btn btn-success"> <= Menú</button>
 	</form>
-	</div><br>
 </div>
 {{>footer}}
