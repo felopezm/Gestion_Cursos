@@ -2,7 +2,7 @@
 <div class="container">
     <h3>Registro usuarios</h3>
     <p style="color:red">{{error_inscripcion}}</p><br>
-    <form id="formInscripcion" action="register" method="post">
+    <form id="formInscripcion" action="register" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-3">
                 <label for="">Identificación<span class="ft-appengine-field-required">*</span></label>
@@ -25,6 +25,10 @@
                 <label for="">Teléfono<span class="ft-appengine-field-required">*</span></label>
                 <input type="tel" name="telefono" id="telefono" placeholder="Número de telefono.." class="form-control"
                     required>
+            </div>
+            <div class="col-sm-3">
+                <label for="">Foto<span class="ft-appengine-field-required">*</span></label>
+                <input type="file" name="foto" id="foto"  accept="image/png" required>
             </div>
         </div><br>
         <button class="btn btn-success">Registrar</button>

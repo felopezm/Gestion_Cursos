@@ -175,12 +175,14 @@ hbs.registerHelper('cursos_del_estudiante', (cursos, inscripciones, usuario) => 
  hbs.registerHelper('tabla_usuarios',(usuarios)=> {
      let inscrip = `<tbody>`;
      usuarios.forEach(datos => {
+         let avatar = datos.foto ? `<img src="data:img/png;base64,${datos.foto.toString('base64')}"  style="width:35%">`: `<img src="uploads/avatar-default.png" style="width:35%">`
          inscrip += `<tr>
                          <td>${datos.cedula}</td>
                          <td>${datos.nombre}</td>
                          <td>${datos.email}</td>
                          <td>${datos.telefono}</td>
-                         <td>${datos.tipo}</td>                
+                         <td>${datos.tipo}</td> 
+                         <td>${avatar}</td>                
                      </tr>`;
      });
      inscrip += `</tbody>`;

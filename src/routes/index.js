@@ -7,6 +7,7 @@ const Usuarios = require('./../models/usuarios')
 const Inscripciones = require('./../models/inscripciones')
 const bcrypt = require('bcrypt')
 const session = require('express-session')
+const multer  = require('multer')
 //Paths
 const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
@@ -398,16 +399,38 @@ app.get('/register', (req, res) => {
         error_inscripcion: ''
     });
 });
-app.post('/register', (req, res) => {
 
+// Esto es para subir los archivos al server
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, 'public/uploads')
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null,'img_' + req.body.cedula + path.extname(file.originalname))
+//     }
+//   })
+//   var upload = multer({ storage: storage })
 
+var upload = multer({
+    limits: {
+        fileSize: 10000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|png|jpeg)$/)) {
+            return cb(new Error('No es un archivo valido'))
+        }
+        cb(null, true)
+    }
+})
+app.post('/register',upload.single('foto'), (req, res) => {
     let usuario = new Usuarios({
         cedula: req.body.cedula,
         nombre: req.body.nombre,
         email: req.body.email,
         telefono: req.body.telefono,
         tipo: 1,
-        password: bcrypt.hashSync(req.body.cedula, 10)
+        password: bcrypt.hashSync(req.body.cedula, 10),
+        foto:req.file.buffer
     });
 
     usuario.save((err, result) => {

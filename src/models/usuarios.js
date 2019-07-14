@@ -32,6 +32,9 @@ const usuariosSchema = new Schema({
     password:{
         type: String,
         required: true
+    },
+    foto:{
+        type:Buffer
     }
 })
 
