@@ -8,6 +8,7 @@ const Inscripciones = require('./../models/inscripciones')
 const bcrypt = require('bcrypt')
 const session = require('express-session')
 const multer  = require('multer')
+const sgMail = require('@sendgrid/mail')
 //Paths
 const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
@@ -21,6 +22,9 @@ app.use(session({
     saveUninitialized: true
 
 }))
+
+// send email
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 //hbs
 app.set('view engine', 'hbs')
@@ -432,6 +436,17 @@ app.post('/register',upload.single('foto'), (req, res) => {
         password: bcrypt.hashSync(req.body.cedula, 10),
         foto:req.file.buffer
     });
+    const msg = {
+        to: req.body.email,
+        from: 'fedelopezm1@gmail.com',
+        subject: 'Bienvenido a la Gestión de Cursos TDA.',
+        text: ``,
+        html: `<strong>Bienvenido estudiante ${req.body.nombre} a la plataforma de Gestión de cursos TDA,
+               El TDA le da la calurosa bienvenida a nuestra nueva plataforma para la gestion de Cursos.<br><br>
+               Para iniciar tu sesion es utilizar tu correo electronico más tu identificación.<br><br> 
+               Cordialmente,</strong><br><br>
+                <img src="https://gestioncursos.herokuapp.com/img/banner.png">`,
+       };
 
     usuario.save((err, result) => {
         console.log(err)
@@ -444,6 +459,8 @@ app.post('/register',upload.single('foto'), (req, res) => {
         res.render('login', {
             mensaje: 'Usuario creado con exito ' + result.nombre
         });
+
+        sgMail.send(msg);
     })
 });
 /*
