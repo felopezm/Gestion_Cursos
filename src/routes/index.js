@@ -23,6 +23,8 @@ app.use(session({
 
 }))
 
+
+
 // send email
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -34,21 +36,25 @@ hbs.registerPartials(dirPartials)
 app.get('/index', (req, res) => {
     res.render('index', {
         mensaje: ''
+        ,indexcoordinador: req.session.usuario
     });
 });
 app.get('/indexaspirante', (req, res) => {
     res.render('indexaspirante', {
         mensaje: ''
+        ,indexcoordinador: req.session.usuario
     });
 });
 app.get('/indexdocente', (req, res) => {
     res.render('indexdocente', {
         mensaje: ''
+        ,indexcoordinador: req.session.usuario
     });
 });
 app.get('/indexcoordinador', (req, res) => {
     res.render('indexcoordinador', {
         mensaje: ''
+        ,indexcoordinador: req.session.usuario
     });
 });
 /*
@@ -61,6 +67,7 @@ app.get('/addCourse', (req, res) => {
         }
         res.render('addCourse', {
             cursos: result
+            ,indexcoordinador: req.session.usuario
         });
     })
 });
@@ -80,10 +87,12 @@ app.post('/addCourse', (req, res) => {
             return res.render('addCourse', {
                 duplicado: 'Error al guardar el curso ' + err,
                 cursos: []
+                ,indexcoordinador: req.session.usuario
             });
         }
         res.render('indexcoordinador', {
             mensaje: 'Curso creado correctamente ' + result.nombre
+            ,indexcoordinador: req.session.usuario
         });
     })
 });
@@ -98,6 +107,7 @@ app.get('/viewCourse', (req, res) => {
         }
         res.render('viewCourse', {
             cursos: result
+            ,indexcoordinador: req.session.usuario
         })
     })
 });
@@ -114,6 +124,7 @@ app.get('/inscriptCourse', (req, res) => {
         return res.render('inscriptCourse', {
             error_inscripcion: '',
             cursos: result
+            ,indexcoordinador: req.session.usuario
         });
     });
 });
@@ -139,6 +150,7 @@ async function getDuplicadoInscripcourse(req, res) {
         return res.render('inscriptCourse', {
             error_inscripcion: 'Usuario ya esta registrado en este curso',
             cursos: cursos
+            ,indexcoordinador: req.session.usuario
         });
     }
     inscripcion.save((err, result) => {
@@ -147,11 +159,13 @@ async function getDuplicadoInscripcourse(req, res) {
             return res.render('inscriptCourse', {
                 error_inscripcion: 'Error al registrar' + err,
                 cursos: cursos
+                ,indexcoordinador: req.session.usuario
             });
         }
         return res.render('inscriptCourse', {
             mensaje: 'registro exitoso',
             cursos: cursos
+            ,indexcoordinador: req.session.usuario
         });
     })
 }
@@ -166,6 +180,7 @@ app.get('/updateCourse', (req, res) => {
         res.render('updateCourse', {
             error_actualizar: '',
             cursos: result
+            ,indexcoordinador: req.session.usuario
         });
     })
 
@@ -182,6 +197,7 @@ app.post('/updateCourse', (req, res) => {
             res.render('updateCourse', {
                 error_actualizar: 'Por favor ingrese cedula del docente',
                 cursos: result
+                ,indexcoordinador: req.session.usuario
             });
         })
 
@@ -196,12 +212,14 @@ app.post('/updateCourse', (req, res) => {
                 res.render('updateCourse', {
                     error_actualizar: 'Error al actualizar el estado del curso, ' + err,
                     cursos: result
+                    ,indexcoordinador: req.session.usuario
                 });
             })
 
         }
         res.render('indexcoordinador', {
             mensaje: `Curso ${result.nombre}, Actualizado Correctamente`
+            ,indexcoordinador: req.session.usuario
         })
     })
 });
@@ -229,6 +247,7 @@ app.get('/viewEstudenByCourseDoc', (req, res) => {
                     mensaje: '',
                     cursos: cursos,
                     inscripciones: result3
+                    ,indexcoordinador: req.session.usuario
                 });
             })
         })
@@ -261,6 +280,7 @@ app.get('/viewEstudenByCourse', (req, res) => {
                 mensaje: '',
                 cursos: cursos,
                 inscripciones: result2
+                ,indexcoordinador: req.session.usuario
             });
         })
     })
@@ -270,15 +290,18 @@ app.post('/viewEstudenByCourse', (req, res) => {
         if (err)
             return res.render('viewEstudenByCourse', {
                 mensaje: 'Error al eliminar el estudiante' + err
+                ,indexcoordinador: req.session.usuario
             });
 
         if (!result) {
             res.render('eliminar', {
-                nombre: 'No encontrado',
+                nombre: 'No encontrado'
+                ,indexcoordinador: req.session.usuario
             })
         }
         res.render('indexcoordinador', {
             mensaje: 'Estudiante Eliminado Correctamente'
+            ,indexcoordinador: req.session.usuario
         });
     })
 });
@@ -309,6 +332,7 @@ app.get('/viewCoursesOffEstuden', (req, res) => {
                     cursos: cursos,
                     inscripciones: inscripciones,
                     usuario: result3
+                    ,indexcoordinador: req.session.usuario
                 });
 
             })
@@ -325,15 +349,18 @@ app.post('/viewCoursesOffEstuden', (req, res) => {
         if (err)
             return res.render('indexaspirante', {
                 mensaje: 'Error al eliminar el estudiante' + err
+                ,indexcoordinador: req.session.usuario
             });
 
         if (!result) {
             res.render('indexaspirante', {
-                nombre: 'No encontrado',
+                nombre: 'No encontrado'
+                ,indexcoordinador: req.session.usuario
             })
         }
         res.render('indexaspirante', {
             mensaje: 'Estudiante Eliminado Correctamente'
+            ,indexcoordinador: req.session.usuario
         });
     })
 
@@ -345,6 +372,7 @@ app.get('/', (req, res) => {
 
     res.render('login', {
         mensaje: ''
+        ,indexcoordinador: req.session.usuario
     });
 });
 
@@ -357,12 +385,14 @@ app.post('/login', (req, res) => {
 
         if (!result) {
             return res.render('login', {
-                mensaje: 'Usuario no encontrado',
+                mensaje: 'Usuario no encontrado'
+                ,indexcoordinador: req.session.usuario
             })
         }
         if (!bcrypt.compareSync(req.body.password, result.password)) {
             return res.render('login', {
                 mensaje: 'Contraseña no es correcta'
+                ,indexcoordinador: req.session.usuario
             }
             )
         }
@@ -371,23 +401,29 @@ app.post('/login', (req, res) => {
 
             case 1:
                 res.render('indexaspirante', {
-                    mensaje: ''
+                    mensaje: '',
+                    idUser: result._id
+                    ,indexcoordinador: req.session.usuario
                 });
                 break;
             case 2:
                 res.render('indexdocente', {
-                    mensaje: ''
+                    mensaje: '',
+                    idUser: result._id
+                    ,indexcoordinador: req.session.usuario
                 });
                 break;
             case 3:
                 res.render('indexcoordinador', {
-                    mensaje: ''
+                    mensaje: '',
+                    idUser: result._id
+                    ,indexcoordinador: req.session.usuario
                 });
                 break;
             default:
                 break;
         }
-
+        console.log(result);
         req.session.usuario = result._id;
         console.log(req.session.tipoUsuario);
 
@@ -401,6 +437,7 @@ app.post('/login', (req, res) => {
 app.get('/register', (req, res) => {
     res.render('register', {
         error_inscripcion: ''
+        ,indexcoordinador: req.session.usuario
     });
 });
 
@@ -453,11 +490,13 @@ app.post('/register',upload.single('foto'), (req, res) => {
         if (err) {
             return res.render('register', {
                 error_inscripcion: 'Error al registrar' + err
+                ,indexcoordinador: req.session.usuario
             });
 
         }
         res.render('login', {
             mensaje: 'Usuario creado con exito ' + result.nombre
+            ,indexcoordinador: req.session.usuario
         });
 
         sgMail.send(msg);
@@ -472,11 +511,13 @@ app.get('/gestionUsuarios', (req, res) => {
             return res.render('gestionUsuarios', {
                 mensaje: `<p style="color:red">Error ${err}</p>`,
                 usuarios: []
+                ,indexcoordinador: req.session.usuario
             });
         }
         res.render('gestionUsuarios', {
             mensaje: '',
             usuarios: result
+            ,indexcoordinador: req.session.usuario
         });
     })
 });
@@ -486,6 +527,7 @@ app.post('/gestionUsuarios', (req, res) => {
             return res.render('gestionUsuarios', {
                 mensaje: `<p style="color:red">Error ${err}</p>`,
                 usuarios: []
+                ,indexcoordinador: req.session.usuario
             })
         }
         else if (result) {
@@ -494,11 +536,13 @@ app.post('/gestionUsuarios', (req, res) => {
                     return res.render('gestionUsuarios', {
                         mensaje: `<p style="color:red">Error ${err}</p>`,
                         usuarios: []
+                        ,indexcoordinador: req.session.usuario
                     })
                 }
                 res.render('gestionUsuarios', {
                     mensaje: '<p style="color:green">Cambio exitoso </p>',
                     usuarios: result
+                    ,indexcoordinador: req.session.usuario
                 });
             })
         } else {
@@ -507,11 +551,13 @@ app.post('/gestionUsuarios', (req, res) => {
                     return res.render('gestionUsuarios', {
                         mensaje: `<p style="color:red">Error ${err}</p>`,
                         usuarios: []
+                        ,indexcoordinador: req.session.usuario
                     })
                 }
                 res.render('gestionUsuarios', {
                     mensaje: '<p style="color:red">Usuario no existe, validar cedula </p>',
                     usuarios: result
+                    ,indexcoordinador: req.session.usuario
                 })
             })
         }
@@ -523,6 +569,8 @@ app.post('/gestionUsuarios', (req, res) => {
 app.get('*', (req, res) => {
     res.render('error', {
         estudiante: 'error'
+        ,indexcoordinador: req.session.usuario
+
     });
 });
 
