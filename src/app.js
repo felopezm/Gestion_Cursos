@@ -45,14 +45,21 @@ server.listen(process.env.PORT, () => {
 
 });
 var Cursos = require('./models/cursos');
-
+const {UsuariosSockets}= require('./models/usuariosSocket');
+const usuarioSocket= new UsuariosSockets();
 io.on('connection', client => {
 	console.log("connect");
 
 	client.emit("mensaje","Conectado")
 	
+	client.on('usuarioNuevo',(usuario)=>{
+		usuarioSocket.agregarUsuario(client.id,usuario);
+		console.log(usuarioSocket.getUsuarios());
+	})
 	});
 	
 	io.on('notifications',client =>{
 		console.log("notificacion")
 	})
+
+	

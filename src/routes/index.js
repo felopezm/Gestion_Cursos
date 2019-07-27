@@ -135,18 +135,20 @@ app.get('/inscriptCourse', (req, res) => {
 });
 app.post('/inscriptCourse', (req, res) => {
     getDuplicadoInscripcourse(req, res);
-    registerNotification("Se ah creado inscrito ah un curso","","1");
+    
 
 });
 
 function registerNotification(texto,usuario,tipo){
-    let notification =new notification({
+    console.log("registrar notificacion")
+    let notification =new Notifications({
+        estado:0,
         texto:texto,
         idUsuario:usuario,
         tipoUsuario:tipo
     });
     notification.save((err, result) => {
-       console.log(err+"",result);
+       console.log(err+"/"+result);
     })
 }
 
@@ -180,6 +182,7 @@ async function getDuplicadoInscripcourse(req, res) {
                 ,indexcoordinador: req.session.usuario
             });
         }
+        registerNotification("Se ah creado inscrito ah un curso","","1");
         return res.render('inscriptCourse', {
             mensaje: 'registro exitoso',
             cursos: cursos

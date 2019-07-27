@@ -15,7 +15,7 @@ const notificationsSchema = new Schema({
     },
     idUsuario: {
         type: String,
-        required:true
+        default:''
     },
     tipoUsuario: {
         type: String,
