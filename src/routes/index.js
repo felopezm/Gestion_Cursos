@@ -4,16 +4,21 @@ const path = require('path')
 const hbs = require('hbs')
 const Cursos = require('./../models/cursos')
 const Usuarios = require('./../models/usuarios')
+const Notifications=require('./../models/notifications')
 const Inscripciones = require('./../models/inscripciones')
 const bcrypt = require('bcrypt')
 const session = require('express-session')
 const multer  = require('multer')
 const sgMail = require('@sendgrid/mail')
+
+
 //Paths
 const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
 
 require('./../helpers/helpers')
+
+
 
 //Session
 app.use(session({
@@ -130,7 +135,20 @@ app.get('/inscriptCourse', (req, res) => {
 });
 app.post('/inscriptCourse', (req, res) => {
     getDuplicadoInscripcourse(req, res);
+    registerNotification("Se ah creado inscrito ah un curso","","1");
+
 });
+
+function registerNotification(texto,usuario,tipo){
+    let notification =new notification({
+        texto:texto,
+        idUsuario:usuario,
+        tipoUsuario:tipo
+    });
+    notification.save((err, result) => {
+       console.log(err+"",result);
+    })
+}
 
 async function getDuplicadoInscripcourse(req, res) {
 
@@ -423,7 +441,7 @@ app.post('/login', (req, res) => {
             default:
                 break;
         }
-        console.log(result);
+       
         req.session.usuario = result._id;
         console.log(req.session.tipoUsuario);
 

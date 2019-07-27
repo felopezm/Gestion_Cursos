@@ -44,8 +44,15 @@ server.listen(process.env.PORT, () => {
 
 
 });
-
+var Cursos = require('./models/cursos');
 
 io.on('connection', client => {
 	console.log("connect");
-  });
+
+	client.emit("mensaje","Conectado")
+	
+	});
+	
+	io.on('notifications',client =>{
+		console.log("notificacion")
+	})
