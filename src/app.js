@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('./routes/index'));
 
 //Conection BD
-mongoose.connect('mongodb+srv://fede:fede@cluster0-2wst6.mongodb.net/gestion_cursos?retryWrites=true&w=majority' , { useNewUrlParser: true }, (err) => {
+mongoose.connect('mongodb+srv://fede:fede@cluster0-2wst6.mongodb.net/gestion_cursos?retryWrites=true&w=majority', { useNewUrlParser: true }, (err) => {
 	if (err) {
 		return console.log(err);
 	}
@@ -44,22 +44,90 @@ server.listen(process.env.PORT, () => {
 
 
 });
-var Cursos = require('./models/cursos');
-const {UsuariosSockets}= require('./models/usuariosSocket');
-const usuarioSocket= new UsuariosSockets();
+var Usuarios = require('./models/usuarios');
+var notificaciones = require('./models/notifications');
+const { UsuariosSockets } = require('./models/usuariosSocket');
+const usuarioSocket = new UsuariosSockets();
 io.on('connection', client => {
-	console.log("connect");
+	
+client.on("getMessage",(usuario)=>{
+	console.log("getmessage");
+	
+		console.log(usuario)
+	
+		Usuarios.findOne({ _id: usuario }, (err, result) => {
+			if (err) {
+				return console.log(err);
+			}
+			if(result==null) return;
+			console.log("result:")
+			console.log(result)
+			notificaciones.find({
+				$and:
+					[{
+						$or:
+							[
+								{ idUsuario: result._id },
+								{ idUsuario: "" }
+							]
+					},
+					{
+						$or:
+							[
+								{ tipoUsuario: result.tipo },
+								{ tipoUsuario: "" }
+							]
+					}, { estado: 0 }]
+			}, (err, result2) => {
 
-	client.emit("mensaje","Conectado")
+				if (err) {
+					return console.log(err);
+				}
+				console.log("result2:")
+				console.log(result2)
+				result2.forEach(message => {
+					console.log("enviando ah "+client.id +" "+message.texto);
+					client.emit("mensaje", message.texto);
+					//client.to(client.id).emit("mensaje", message.texto);
+					// notificaciones.findOneAndUpdate({ _id: message._id }, { estado: 1 }, (err, result3) => {
+
+					// 	console.log("result3:")
+					// 	console.log(result3)
+
+					// 	if (err) {
+					// 		return console.log(err);
+					// 	} else { console.log("mensaje enviado") };
+					// })
+
+				});
+			}).limit(5);
+		});
+
 	
-	client.on('usuarioNuevo',(usuario)=>{
-		usuarioSocket.agregarUsuario(client.id,usuario);
+
+})
+
+
+	client.emit("mensaje", "Conectado")
+
+	client.on('usuarioNuevo', (usuario) => {
+		if(usuario !="no hay nada"){
+		usuarioSocket.agregarUsuario(client.id, usuario);
 		console.log(usuarioSocket.getUsuarios());
+	}
 	})
-	});
-	
-	io.on('notifications',client =>{
+	client.on('notifications', client => {
 		console.log("notificacion")
 	})
 
-	
+	client.on("disconnect", () => {
+		let usuarioBorrado = usuarioSocket.borrarUsuario(client.id);
+		console.log("Usuario borrado:" + usuarioBorrado)
+	})
+
+});
+
+	// io.on('notifications',client =>{
+	// 	console.log("notificacion")
+	// })
+

@@ -4,9 +4,9 @@ class UsuariosSockets{
         this.usuarios=[];
     }
 
-    agregarUsuario(id,nombre){
-        let usuario= {id,nombre}
-        this.usuarios.push(usuario)
+    agregarUsuario(id,usuario){
+        let register= {id,usuario}
+        this.usuarios.push(register)
         return this.usuarios
 
     }
