@@ -50,59 +50,7 @@ const { UsuariosSockets } = require('./models/usuariosSocket');
 const usuarioSocket = new UsuariosSockets();
 io.on('connection', client => {
 	
-client.on("getMessage",(usuario)=>{
-	console.log("getmessage");
-	
-		console.log(usuario)
-	
-		Usuarios.findOne({ _id: usuario }, (err, result) => {
-			if (err) {
-				return console.log(err);
-			}
-			if(result==null) return;
-			console.log("result:")
-			console.log(result)
-			notificaciones.find({
-				$and:
-					[{
-						$or:
-							[
-								{ idUsuario: result._id },
-								{ idUsuario: "" }
-							]
-					},
-					{
-						$or:
-							[
-								{ tipoUsuario: result.tipo },
-								{ tipoUsuario: "" }
-							]
-					}, { estado: 0 }]
-			}, (err, result2) => {
-
-				if (err) {
-					return console.log(err);
-				}
-				console.log("result2:")
-				console.log(result2)
-				result2.forEach(message => {
-					console.log("enviando ah "+client.id +" "+message.texto);
-					client.emit("mensaje", message.texto);
-					//client.to(client.id).emit("mensaje", message.texto);
-					// notificaciones.findOneAndUpdate({ _id: message._id }, { estado: 1 }, (err, result3) => {
-
-					// 	console.log("result3:")
-					// 	console.log(result3)
-
-					// 	if (err) {
-					// 		return console.log(err);
-					// 	} else { console.log("mensaje enviado") };
-					// })
-
-				});
-			}).limit(5);
-		});
-
+client.on("getMessage",()=>{
 	
 
 })
@@ -131,3 +79,64 @@ client.on("getMessage",(usuario)=>{
 	// 	console.log("notificacion")
 	// })
 
+
+setInterval(function() {
+  
+  socketSearch()
+}, 5000);
+
+function socketSearch(){
+
+	console.log("getmessage");
+	let connectUsers = usuarioSocket.getUsuarios();
+	console.log("connectusers:")
+	console.log(connectUsers)
+	connectUsers.forEach(connectUser => {
+		Usuarios.findOne({ _id: connectUser.usuario }, (err, result) => {
+			if (err) {
+				return console.log(err);
+			}
+			console.log("result:")
+			console.log(result)
+			notificaciones.find({
+				$and:
+					[{
+						$or:
+							[
+								{ tipoUsuario: result.tipo },
+								{ tipoUsuario: "" }
+							]
+					},{
+						$or:
+						[
+							{ idUsuario: result._id },
+							{ idUsuario: "" }
+						]
+					}, { estado: 0 }]
+			}, (err, result2) => {
+
+				if (err) {
+					return console.log(err);
+				}
+				console.log("result2:")
+				console.log(result2)
+				result2.forEach(message => {
+					console.log("enviando ah "+connectUser.id +" "+message.texto);
+					
+					io.to(connectUser.id).emit("mensaje", message.texto);
+					notificaciones.findOneAndUpdate({ _id: message._id }, { estado: 1 }, (err, result3) => {
+
+						console.log("result3:")
+						console.log(result3)
+
+						if (err) {
+							return console.log(err);
+						} else { console.log("mensaje enviado") };
+					})
+
+				});
+			})
+		});
+
+	});
+}

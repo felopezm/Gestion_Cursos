@@ -17,6 +17,8 @@ socket.on('connect',()=>{
 
 socket.on("mensaje", (information)=>{
     console.log(information);
+    toastr.success(information);
+
 
     });
 function emitNotification(){

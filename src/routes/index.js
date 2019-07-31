@@ -182,7 +182,26 @@ async function getDuplicadoInscripcourse(req, res) {
                 ,indexcoordinador: req.session.usuario
             });
         }
-        registerNotification("Se ah creado inscrito ah un curso","","1");
+
+        Cursos.findOne({_id:id_curso},(err,result)=>{
+
+            if(err){
+                return;
+            }
+            if(result.docente != null || result.docente!=""){
+                Usuarios.findOne({cedula:result.docente},(err,result2)=>{
+
+                    if(err){return;}
+                    registerNotification("Se ha inscrito un estudiante al curso",result2._id,"2");
+
+                })
+                
+
+            }
+          
+
+        })
+       
         return res.render('inscriptCourse', {
             mensaje: 'registro exitoso',
             cursos: cursos
@@ -513,8 +532,20 @@ app.post('/register',upload.single('foto'), (req, res) => {
                 error_inscripcion: 'Error al registrar' + err
                 ,indexcoordinador: req.session.usuario
             });
-
+            
         }
+        //crear notificacion registro usuarios
+        Usuarios.find({tipo:3}, (err,result)=>{
+            if(err){
+                console.log(err);
+                return;
+            }
+            result.forEach(user => {
+                registerNotification("Se ha registrado el usuar:"+usuario.email,user._id,user.tipo);
+            });
+
+        })
+
         res.render('login', {
             mensaje: 'Usuario creado con exito ' + result.nombre
             ,indexcoordinador: req.session.usuario
