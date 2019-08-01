@@ -183,7 +183,7 @@ async function getDuplicadoInscripcourse(req, res) {
             });
         }
 
-        Cursos.findOne({_id:id_curso},(err,result)=>{
+        Cursos.findOne({_id:inscripcion.id_curso},(err,result)=>{
 
             if(err){
                 return;
