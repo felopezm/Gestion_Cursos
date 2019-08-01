@@ -256,6 +256,23 @@ app.post('/updateCourse', (req, res) => {
                 });
             })
 
+            Usuarios.findOne({cedula: req.body.docente },(err,result)=>{
+                if(err){return;}
+                registerNotification("Se le ah asignado el curso"+req.body.nombre,result._id,"2");
+
+            });
+
+            Inscripciones.find({id_curso:req.body.id},(err2,result2)=>{
+                if(err2){return;}
+                result2.forEach(estudiante => {
+                    Usuarios.findOne({cedula:estudiante.cedula},(err3,result3)=>{
+                        if(err3){return;}
+                        registerNotification("El curso "+req.body.nombre+" esta por comenzar",result3._id,"1")
+                    })
+                });
+
+            })
+
         }
         res.render('indexcoordinador', {
             mensaje: `Curso ${result.nombre}, Actualizado Correctamente`
